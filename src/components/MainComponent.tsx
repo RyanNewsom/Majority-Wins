@@ -1,7 +1,7 @@
 import React from "react";
 import { Voter } from "../models/App";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { RegisterVotersContainer } from "../containers/RegisterVotersContainer";
+import { RegisterVotersComponent } from "./RegisterVotersComponent";
 import { CaptureVotesContainer } from "../containers/CaptureVotesContainer";
 import { ElectionCreationContainer } from "../containers/ElectionCreationContainer";
 import NavBar from "./NavBar";
@@ -19,7 +19,7 @@ export function MainComponent(props: MainComponentProps) {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/voters">
-            <RegisterVotersContainer />
+            <RegisterVotersComponent />
           </Route>
           <Route path="/capturevotes">
             <CaptureVotesContainer />
