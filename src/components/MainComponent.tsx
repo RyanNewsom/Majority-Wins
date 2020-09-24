@@ -1,13 +1,14 @@
 import React from "react";
-import { Voter } from "../models/App";
+import { Election, Voter } from "../models/App";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { RegisterVotersComponent } from "./RegisterVotersComponent";
 import { CaptureVotesContainer } from "../containers/CaptureVotesContainer";
-import { ElectionCreationContainer } from "../containers/ElectionCreationContainer";
 import NavBar from "./NavBar";
+import { ElectionComponent } from "./ElectionComponent";
 
 export type MainComponentProps = {
   voters: Voter[];
+  elections: Election[];
 };
 
 export function MainComponent(props: MainComponentProps) {
@@ -25,7 +26,7 @@ export function MainComponent(props: MainComponentProps) {
             <CaptureVotesContainer />
           </Route>
           <Route path="/elections">
-            <ElectionCreationContainer />
+            <ElectionComponent elections={props.elections} />
           </Route>
         </Switch>
       </>
