@@ -1,0 +1,61 @@
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+  },
+  navButton: {
+    marginRight: 16,
+  },
+}));
+
+export default function Navbar() {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            <Link href="/" color="inherit">
+              Majority Wins
+            </Link>
+          </Typography>
+          <Button
+            className={classes.navButton}
+            color="inherit"
+            href="/voters"
+            variant="outlined"
+          >
+            Register Voters
+          </Button>
+          <Button
+            className={classes.navButton}
+            variant="outlined"
+            color="inherit"
+            href="/capturevotes"
+          >
+            Capture Votes
+          </Button>
+          <Button
+            className={classes.navButton}
+            variant="outlined"
+            color="inherit"
+            href="/elections"
+          >
+            Election Creation
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+}
