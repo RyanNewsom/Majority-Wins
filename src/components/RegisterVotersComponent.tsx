@@ -54,6 +54,7 @@ export type RegisterVotersProps = {
   voters: Voter[];
   selectedTab: number;
   onTabSelected: (index: number) => void;
+  deleteVoters: (voters: number[]) => void;
 };
 
 export function RegisterVotersComponent(props: RegisterVotersProps) {
@@ -79,7 +80,10 @@ export function RegisterVotersComponent(props: RegisterVotersProps) {
         <RegisterVoterFormComponent />
       </TabPanel>
       <TabPanel selectedTab={props.selectedTab} index={1}>
-        <RegisteredVotersTableComponent voters={props.voters} />
+        <RegisteredVotersTableComponent
+          voters={props.voters}
+          deleteVoters={props.deleteVoters}
+        />
       </TabPanel>
     </div>
   );

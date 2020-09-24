@@ -26,6 +26,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 export type RegisteredVotersTableProps = {
   voters: Voter[];
+  deleteVoters: (voters: number[]) => void;
 };
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -179,6 +180,7 @@ const useToolbarStyles = makeStyles((theme: Theme) =>
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
+  deleteClicked: () => void;
 }
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
@@ -213,7 +215,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton aria-label="delete">
-            <DeleteIcon />
+            <DeleteIcon onClick={props.deleteClicked} />
           </IconButton>
         </Tooltip>
       ) : (
@@ -317,7 +319,10 @@ export function RegisteredVotersTableComponent(
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          deleteClicked={() => props.deleteVoters(selected)}
+        />
         <TableContainer>
           <Table
             className={classes.table}

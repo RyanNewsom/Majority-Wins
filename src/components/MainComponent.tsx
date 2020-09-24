@@ -11,6 +11,7 @@ export type MainComponentProps = {
   elections: Election[];
   onRegisterVotersTabSelected: (tabSelected: number) => void;
   registeredVotersSelectedTab: number;
+  deleteVoters: (voters: number[]) => void;
 };
 
 export function MainComponent(props: MainComponentProps) {
@@ -26,6 +27,7 @@ export function MainComponent(props: MainComponentProps) {
               voters={props.voters}
               onTabSelected={props.onRegisterVotersTabSelected}
               selectedTab={props.registeredVotersSelectedTab}
+              deleteVoters={props.deleteVoters}
             />
           </Route>
           <Route path="/capturevotes">

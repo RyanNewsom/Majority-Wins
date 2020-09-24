@@ -27,6 +27,7 @@ export function AppContainer() {
       //   cancel: CarToolActions.createCancelAction,
       onRegisterVotersTabSelected:
         RegisterVotersActions.createRegisterVotersTabSelectedAction,
+      deleteVoters: RegisterVotersActions.deleteVoters,
     },
     dispatch
   );
