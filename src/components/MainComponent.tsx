@@ -18,6 +18,8 @@ export function MainComponent(props: MainComponentProps) {
   console.log(props.items);
   return (
     <>
+      <h1>Majority Wins </h1>
+      <p>It's Time for a Change</p>
       <Router>
       <div>
         <nav>
