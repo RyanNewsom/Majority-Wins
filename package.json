@@ -1,6 +1,7 @@
 {
   "name": "majority-wins",
   "version": "0.1.0",
+  "homepage": "https://ryannewsom.github.io/Majority-Wins/",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -11,6 +12,7 @@
     "@types/node": "^12.12.62",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
+    "gh-pages": "^3.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
