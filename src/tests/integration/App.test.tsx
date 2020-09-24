@@ -4,6 +4,6 @@ import App from "../../App";
 
 test("when App is first viewed, renders ", () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/MainComponent/i);
+  const linkElement = getByText(/Majority Wins/i);
   expect(linkElement).toBeInTheDocument();
 });
