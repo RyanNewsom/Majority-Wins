@@ -8,6 +8,7 @@ import {
   Theme,
 } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
+import Button from "@material-ui/core/Button";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -343,7 +344,6 @@ export function RegisteredVotersTableComponent(
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -353,6 +353,7 @@ export function RegisteredVotersTableComponent(
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
+                          onClick={(event) => handleClick(event, row.id)}
                           inputProps={{ "aria-labelledby": labelId }}
                         />
                       </TableCell>
@@ -370,6 +371,9 @@ export function RegisteredVotersTableComponent(
                       <TableCell align="left">{row.birthDate}</TableCell>
                       <TableCell align="left">{row.email}</TableCell>
                       <TableCell align="left">{row.phone}</TableCell>
+                      <TableCell align="left">
+                        <Button>Edit</Button>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
