@@ -47,6 +47,7 @@ export function CreateElectionComponent({ onCreateElection }: CreateElectionComp
         ...initialQuestion,
       },
     ],
+    voterIds: [],
   };
 
   const [electionForm, setElectionForm] = useState<ElectionForm>({
@@ -60,13 +61,17 @@ export function CreateElectionComponent({ onCreateElection }: CreateElectionComp
     });
   };
 
-  const changeElectionQuestions = (idx: number) => {
+  const changeElectionQuestions = (id: number) => {
     return (e: ChangeEvent<HTMLInputElement>) => {
       // update the particular question
       const newElectionForm = {
         ...electionForm,
       };
-      newElectionForm.questions[idx].content = e.target.value;
+      const updatedQuestion = newElectionForm.questions.find(q => q.id === id);
+      if (updatedQuestion !== undefined) {
+        updatedQuestion.content = e.target.value;
+      }
+
       setElectionForm(newElectionForm);
     };
   };
@@ -77,16 +82,16 @@ export function CreateElectionComponent({ onCreateElection }: CreateElectionComp
       // new blank question
       questions: electionForm.questions.concat({
         ...initialQuestion,
-        id: electionForm.questions.length,
+        id: Math.max(...electionForm.questions.map(q => q.id), 0) + 1,
       }),
     });
   };
 
-  const removeElectionQuestion = (idx: number) => {
+  const removeElectionQuestion = (id: number) => {
     return () => {
       setElectionForm({
         ...electionForm,
-        questions: electionForm.questions.filter((question, i) => i !== idx),
+        questions: electionForm.questions.filter(q => q.id !== id),
       });
     };
   };
@@ -129,17 +134,17 @@ export function CreateElectionComponent({ onCreateElection }: CreateElectionComp
       />
       <h3>Questions</h3>
       <List>
-        {electionForm.questions.map((question, idx) => (
-          <ListItem key={idx}>
+        {electionForm.questions.map(q => (
+          <ListItem key={q.id}>
             <TextField
               label="Question"
               fullWidth
               color="primary"
-              value={question.content}
-              onChange={changeElectionQuestions(idx)}
+              value={q.content}
+              onChange={changeElectionQuestions(q.id)}
             />
             <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="delete" onClick={removeElectionQuestion(idx)}>
+              <IconButton edge="end" aria-label="delete" onClick={removeElectionQuestion(q.id)}>
                 <Delete />
               </IconButton>
             </ListItemSecondaryAction>

@@ -30,7 +30,7 @@ export type Election = {
   voterIds: number[];
 };
 
-export type ElectionForm = Omit<Election, 'id' | 'voterIds'>;
+export type ElectionForm = Omit<Election, 'id'>;
 
 export type Question = {
   id: number;
