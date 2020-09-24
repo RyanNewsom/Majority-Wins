@@ -1,5 +1,9 @@
 import { Action, Dispatch } from 'redux';
-import { Voter } from '../models/App';
+import { Election, Voter } from '../models/App';
+
+//
+// start Voter actions
+//
 
 export const REFRESH_VOTERS_REQUEST_ACTION = 'REFRESH_VOTERS_REQUEST';
 export const REFRESH_VOTERS_DONE_ACTION = 'REFRESH_VOTERS_DONE';
@@ -42,4 +46,59 @@ export const refreshVoters = () => {
   };
 };
 
-export type AppActions = RefreshVotersRequestAction | RefreshVotersDoneAction;
+//
+// end Voter actions
+// start Election actions
+//
+
+export const REFRESH_ELECTIONS_REQUEST_ACTION = 'REFRESH_ELECTIONS_REQUEST';
+export const REFRESH_ELECTIONS_DONE_ACTION = 'REFRESH_ELECTIONS_DONE';
+
+export type RefreshElectionsRequestAction = Action<string>;
+export interface RefreshElectionsDoneAction extends Action<string> {
+  payload: {
+    elections: Election[];
+  };
+}
+
+export type CreateRefreshElectionsRequestAction = () => RefreshElectionsRequestAction;
+export type CreateRefreshElectionsDoneAction = (election: Election[]) => RefreshElectionsDoneAction;
+
+export const createRefreshElectionsRequestAction: CreateRefreshElectionsRequestAction = () => ({
+  type: REFRESH_ELECTIONS_REQUEST_ACTION,
+});
+
+export const createRefreshElectionsDoneAction: CreateRefreshElectionsDoneAction = (elections: Election[]) => ({
+  type: REFRESH_ELECTIONS_DONE_ACTION,
+  payload: {
+    elections,
+  },
+});
+
+export function isRefreshElectionsRequestAction(action: Action<string>): action is RefreshElectionsRequestAction {
+  return [REFRESH_ELECTIONS_REQUEST_ACTION].includes(action.type);
+}
+
+export function isRefreshElectionsDoneAction(action: Action<string>): action is RefreshElectionsDoneAction {
+  return [REFRESH_ELECTIONS_DONE_ACTION].includes(action.type);
+}
+
+export const refreshElections = () => {
+  return async (dispatch: Dispatch) => {
+    dispatch(createRefreshElectionsRequestAction());
+    const res = await fetch('http://localhost:3060/elections');
+    const elections = await res.json();
+    dispatch(createRefreshElectionsDoneAction(elections));
+  };
+};
+
+//
+// end Election actions
+//
+
+// type to encapsulate all the actions we are offering
+export type AppActions =
+  | RefreshVotersRequestAction
+  | RefreshElectionsDoneAction
+  | RefreshElectionsRequestAction
+  | RefreshElectionsDoneAction;
