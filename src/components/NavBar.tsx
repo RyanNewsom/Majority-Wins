@@ -4,7 +4,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,24 +17,31 @@ const useStyles = makeStyles((theme) => ({
   navButton: {
     marginRight: 16,
   },
+  navLink: {
+    color: "white",
+    textDecoration: "none",
+  },
 }));
 
 export default function Navbar() {
   const classes = useStyles();
+  let history = useHistory();
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            <Link href="/" color="inherit">
+            <Link className={classes.navLink} to="/">
               Majority Wins
             </Link>
           </Typography>
           <Button
             className={classes.navButton}
             color="inherit"
-            href="/voters"
+            onClick={() => {
+              history.push("/voters");
+            }}
             variant="outlined"
           >
             Register Voters
@@ -42,7 +50,9 @@ export default function Navbar() {
             className={classes.navButton}
             variant="outlined"
             color="inherit"
-            href="/capturevotes"
+            onClick={() => {
+              history.push("/capturevotes");
+            }}
           >
             Capture Votes
           </Button>
@@ -50,7 +60,9 @@ export default function Navbar() {
             className={classes.navButton}
             variant="outlined"
             color="inherit"
-            href="/elections"
+            onClick={() => {
+              history.push("/elections");
+            }}
           >
             Election Creation
           </Button>
