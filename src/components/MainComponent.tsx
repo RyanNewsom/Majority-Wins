@@ -23,7 +23,7 @@ export function MainComponent(props: MainComponentProps) {
             <RegisterVotersContainer />
           </Route>
           <Route path="/capturevotes">
-            <CaptureVotesContainer />
+            <CaptureVotesContainer elections={props.elections}/>
           </Route>
           <Route path="/elections">
             <ElectionComponent elections={props.elections} />

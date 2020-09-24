@@ -6,6 +6,7 @@ export type ElectionComponentProps = {
 };
 
 export function ElectionComponent(props: ElectionComponentProps) {
+  console.log(props.elections);
   return (
     <>
       <h1>Elections!</h1>
