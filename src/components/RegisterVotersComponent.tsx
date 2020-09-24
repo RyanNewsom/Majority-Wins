@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { RegisterVoterFormComponent } from "./RegisterVoterFormComponent";
 import { RegisteredVotersTableComponent } from "./RegisteredVotersTableComponent";
+import { Voter } from '../models/App';
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -49,15 +50,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function RegisterVotersComponent() {
+export type VoterProps = {
+  voters: Voter[],
+  onAddVoter: (voter: Voter) => void,
+}
+export function RegisterVotersComponent(props: VoterProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: any, newValue: number) => {
     setValue(newValue);
   };
-
+  
+  const {
+    voters,
+    onAddVoter: addVoter
+  } = props;
+  
   return (
+    <>
     <div className={classes.root}>
       <AppBar position="static" elevation={0}>
         <Tabs
@@ -70,11 +81,12 @@ export function RegisterVotersComponent() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <RegisterVoterFormComponent />
+        <RegisterVoterFormComponent buttonText="Add Voter" onSubmitVoter={addVoter} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <RegisteredVotersTableComponent />
       </TabPanel>
     </div>
+    </>
   );
 }
