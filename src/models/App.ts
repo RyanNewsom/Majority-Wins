@@ -12,13 +12,12 @@ export type Voter = {
   lastName: string;
   address: string;
   city: string;
-  state?: string;
   birthDate: string;
   email: string;
   phone: string;
 
   // electionIds that this user has voted in
-  votedIn: number[];
+  //votedIn: number[];
 };
 
 // election create does a PUT w/ an election

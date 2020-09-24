@@ -73,7 +73,32 @@ export function RegisterVotersComponent() {
         <RegisterVoterFormComponent />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <RegisteredVotersTableComponent />
+        <RegisteredVotersTableComponent
+          voters={[
+            {
+              id: 0,
+              firstName: "Ryan",
+              lastName: "Newsom",
+              address: "123 main st",
+              city: "San Diego",
+              birthDate: "06/04/1993",
+              email: "rydev@gmail.com",
+              phone: "8586037832",
+              //votedIn: [],
+            },
+            {
+              id: 1,
+              firstName: "John",
+              lastName: "Snow",
+              address: "21 main st",
+              city: "The Wall",
+              birthDate: "01/04/1992",
+              email: "johnsnow@thewall.org",
+              phone: "1234567890",
+              //votedIn: [],
+            },
+          ]}
+        />
       </TabPanel>
     </div>
   );
