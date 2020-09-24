@@ -11,17 +11,17 @@ import { RegisteredVotersTableComponent } from "./RegisteredVotersTableComponent
 import { Voter } from "../models/App";
 
 function TabPanel(props: any) {
-  const { children, value, index, ...other } = props;
+  const { children, selectedTab, index, ...other } = props;
 
   return (
     <div
       role="tabpanel"
-      hidden={value !== index}
+      hidden={selectedTab !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
+      {selectedTab === index && (
         <Box p={3}>
           <Typography>{children}</Typography>
         </Box>
@@ -33,7 +33,7 @@ function TabPanel(props: any) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  selectedTab: PropTypes.any.isRequired,
 };
 
 function a11yProps(index: number) {
@@ -52,21 +52,22 @@ const useStyles = makeStyles((theme) => ({
 
 export type RegisterVotersProps = {
   voters: Voter[];
+  selectedTab: number;
+  onTabSelected: (index: number) => void;
 };
 
 export function RegisterVotersComponent(props: RegisterVotersProps) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
 
   const handleChange = (event: any, newValue: number) => {
-    setValue(newValue);
+    props.onTabSelected(newValue);
   };
 
   return (
     <div className={classes.root}>
       <AppBar position="static" elevation={0}>
         <Tabs
-          value={value}
+          value={props.selectedTab}
           onChange={handleChange}
           aria-label="simple tabs example"
         >
@@ -74,10 +75,10 @@ export function RegisterVotersComponent(props: RegisterVotersProps) {
           <Tab label="View Registered Voters" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      <TabPanel selectedTab={props.selectedTab} index={0}>
         <RegisterVoterFormComponent />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel selectedTab={props.selectedTab} index={1}>
         <RegisteredVotersTableComponent voters={props.voters} />
       </TabPanel>
     </div>

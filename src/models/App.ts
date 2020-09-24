@@ -3,6 +3,7 @@ export type AppState = {
   // currentVoter?: Voter;
   voters: Voter[];
   elections: Election[];
+  registeredVotersSelectedTab: number | undefined;
 };
 
 export type Voter = {
@@ -17,7 +18,6 @@ export type Voter = {
   phone: string;
 
   // electionIds that this user has voted in
-  //votedIn: number[];
 };
 
 // election create does a PUT w/ an election

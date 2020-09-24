@@ -9,6 +9,8 @@ import { ElectionComponent } from "./ElectionComponent";
 export type MainComponentProps = {
   voters: Voter[];
   elections: Election[];
+  onRegisterVotersTabSelected: (tabSelected: number) => void;
+  registeredVotersSelectedTab: number;
 };
 
 export function MainComponent(props: MainComponentProps) {
@@ -20,7 +22,11 @@ export function MainComponent(props: MainComponentProps) {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/voters">
-            <RegisterVotersComponent voters={props.voters} />
+            <RegisterVotersComponent
+              voters={props.voters}
+              onTabSelected={props.onRegisterVotersTabSelected}
+              selectedTab={props.registeredVotersSelectedTab}
+            />
           </Route>
           <Route path="/capturevotes">
             <CaptureVotesContainer />

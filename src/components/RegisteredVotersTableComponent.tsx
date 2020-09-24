@@ -28,8 +28,6 @@ export type RegisteredVotersTableProps = {
   voters: Voter[];
 };
 
-type SortableVoter = Omit<Voter, "votedIn">;
-
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -254,7 +252,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export function RegisteredVotersTableComponent(
   props: RegisteredVotersTableProps
 ) {
-  const voters = props.voters.map((item) => item as SortableVoter);
+  const voters = props.voters.concat();
   const classes = useStyles();
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<keyof Voter>("id");
