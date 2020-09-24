@@ -17,9 +17,11 @@ export type Voter = {
   birthDate: string;
   email: string;
   phone: string;
+  votedIn: number[];
 };
 
 export type Question = {
+  id: number;
   content: string;
   yesCount: number;
   noCount: number;
