@@ -1,14 +1,13 @@
-import React, { useEffect } from "react";
-import { bindActionCreators } from "redux";
-import { useSelector, useDispatch } from "react-redux";
-import { Item, AppState } from "../models/App";
+import React, { useEffect } from 'react';
+import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { AppState, Voter } from '../models/App';
 
-import { MainComponent } from "../components/MainComponent";
-import * as AppActions from "../actions/AppActions";
+import { MainComponent } from '../components/MainComponent';
+import * as AppActions from '../actions/AppActions';
 
 export function AppContainer() {
-  //const items = useSelector<AppState, Item[]>(itemSelector);
-  const items = useSelector<AppState, Item[]>((state) => state.items);
+  const voters = useSelector<AppState, Voter[]>(state => state.voters);
   const dispatch = useDispatch();
 
   const boundActionsMap = bindActionCreators(
@@ -24,8 +23,8 @@ export function AppContainer() {
   );
 
   useEffect(() => {
-    dispatch(AppActions.refreshItems());
+    dispatch(AppActions.refreshVoters());
   }, [dispatch]);
 
-  return <MainComponent items={items} {...boundActionsMap} />;
+  return <MainComponent voters={voters} {...boundActionsMap} />;
 }

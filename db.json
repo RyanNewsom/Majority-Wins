@@ -1,12 +1,96 @@
 {
-  "items": [
+  "voters": [
     {
       "id": 1,
-      "title": "title 1"
+      "firstName": "Fox",
+      "lastName": "Mulder",
+      "address": "2630 Hegal Place, Apt. 42",
+      "city": "Alexandria",
+      "state": "Virginia",
+      "birthDate": "10/13/1961",
+      "email": "mulder@fbi.gov",
+      "phone": "208-867-5309",
+      "votedIn": [
+        1
+      ]
     },
     {
       "id": 2,
-      "title": "title 2"
+      "firstName": "Dana",
+      "lastName": "Scully",
+      "address": "1213 37th Place",
+      "city": "Bethesda",
+      "state": "Maryland",
+      "birthDate": "2/23/1964",
+      "email": "scully@fbi.gov",
+      "phone": "208-420-6969",
+      "votedIn": [
+        1
+      ]
+    },
+    {
+      "id": 3,
+      "firstName": "John",
+      "lastName": "Byers",
+      "address": "123 Nowhere St.",
+      "city": "Area 51",
+      "state": "Nevada",
+      "birthDate": "1/1/1970",
+      "email": "byers@lone-gunmen.org",
+      "phone": "151-420-6969",
+      "votedIn": []
+    }
+  ],
+  "elections": [
+    {
+      "id": 1,
+      "name": "X-Files Monsters",
+      "description": "The X-Files have many great monsters, vote on the ones which you find terrifying",
+      "questions": [
+        {
+          "id": 1,
+          "content": "Flukeman is the most terrifying X-Files monster",
+          "yes": 1,
+          "no": 0
+        },
+        {
+          "id": 2,
+          "content": "Eugene Victor Tooms is the most terrifying X-Files monster",
+          "yes": 0,
+          "no": 1
+        },
+        {
+          "id": 3,
+          "content": "Mrs. Peacock is the most terrifying X-Files monster",
+          "yes": 1,
+          "no": 1
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "X-Files Villains",
+      "description": "Some people think members of The Syndicate are actually good, do you?",
+      "questions": [
+        {
+          "id": 1,
+          "content": "Cigarette Smoking Man is an evil villain in X-Files",
+          "yes": 0,
+          "no": 0
+        },
+        {
+          "id": 2,
+          "content": "Alex Krycek is an evil villain in X-Files",
+          "yes": 0,
+          "no": 0
+        },
+        {
+          "id": 3,
+          "content": "Mr. X is an evil villain in X-Files",
+          "yes": 0,
+          "no": 0
+        }
+      ]
     }
   ]
 }
