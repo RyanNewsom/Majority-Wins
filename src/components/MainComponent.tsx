@@ -1,10 +1,11 @@
 import React from "react";
-import { Election, Voter } from "../models/App";
+import { Election, ElectionForm, Voter } from "../models/App";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { RegisterVotersComponent } from "./RegisterVotersComponent";
 import { CaptureVotesContainer } from "../containers/CaptureVotesContainer";
 import NavBar from "./NavBar";
-import { ElectionComponent } from "./ElectionComponent";
+import { ElectionTableComponent } from "./ElectionTableComponent";
+import { CreateElectionComponent } from "./CreateElectionComponent";
 
 export type MainComponentProps = {
   voters: Voter[];
@@ -12,6 +13,9 @@ export type MainComponentProps = {
   onRegisterVotersTabSelected: (tabSelected: number) => void;
   registeredVotersSelectedTab: number;
   deleteVoters: (voters: number[]) => void;
+  expandedElectionId: number;
+  onExpandElectionRow: (expandedElectionId: number) => void;
+  onCreateElection: (electionForm: ElectionForm) => void;
 };
 
 export function MainComponent(props: MainComponentProps) {
@@ -34,7 +38,14 @@ export function MainComponent(props: MainComponentProps) {
             <CaptureVotesContainer />
           </Route>
           <Route path="/elections">
-            <ElectionComponent elections={props.elections} />
+            <ElectionTableComponent
+              elections={props.elections}
+              expandedElectionId={props.expandedElectionId}
+              onExpandElectionRow={props.onExpandElectionRow}
+            />
+            <CreateElectionComponent
+              onCreateElection={props.onCreateElection}
+            />
           </Route>
         </Switch>
       </>
