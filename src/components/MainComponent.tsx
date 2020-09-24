@@ -12,10 +12,6 @@ export type MainComponentProps = {
 };
 
 export function MainComponent(props: MainComponentProps) {
-  // FIXME: delete these
-  console.log(props.voters);
-  console.log(props.elections);
-
   return (
     <Router>
       <>

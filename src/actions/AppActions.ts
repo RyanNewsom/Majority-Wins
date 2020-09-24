@@ -88,7 +88,6 @@ export const refreshElections = () => {
     dispatch(createRefreshElectionsRequestAction());
     const res = await fetch('http://localhost:3060/elections');
     const elections = await res.json();
-    console.log('elections', elections);
     dispatch(createRefreshElectionsDoneAction(elections));
   };
 };
