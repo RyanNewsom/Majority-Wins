@@ -9,7 +9,7 @@ export function MainComponent(props: MainComponentProps) {
   console.log(props.items);
   return (
     <>
-      <h1>hello</h1>
+      <h1>Hello!!! from MainComponent </h1>
       {props.items?.map((item) => {
         return <p>{item.title}</p>;
       })}
