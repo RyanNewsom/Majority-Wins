@@ -9,7 +9,7 @@ export function MainComponent(props: MainComponentProps) {
   console.log(props.voters);
   return (
     <>
-      <h1>hello</h1>
+      <h1>Hello!!! from MainComponent </h1>
       {props.voters?.map(voter => {
         return (
           <p>
