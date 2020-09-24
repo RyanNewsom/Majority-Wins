@@ -1,6 +1,10 @@
 import { Action, Dispatch } from 'redux';
 import { Voter } from '../models/App';
 
+//
+// start Voter actions
+//
+
 export const REFRESH_VOTERS_REQUEST_ACTION = 'REFRESH_VOTERS_REQUEST';
 export const REFRESH_VOTERS_DONE_ACTION = 'REFRESH_VOTERS_DONE';
 export const ADD_VOTERS_REQUEST_ACTION = 'ADD_VOTERS_REQUEST';
@@ -54,6 +58,11 @@ export const refreshVoters = () => {
 };
 
 
+//
+// end Voter actions
+//
+
+// type to encapsulate all the actions we are offering
 export type AppActions = RefreshVotersRequestAction | RefreshVotersDoneAction;
 
 
@@ -68,3 +77,4 @@ export const addVoter = (voter: Voter) => {
     dispatch(createRefreshVotersRequestAction());
   };
 };
+
