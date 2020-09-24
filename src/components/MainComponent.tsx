@@ -1,16 +1,20 @@
 import React from 'react';
-import { Voter } from '../models/App';
+import { Election, Voter } from '../models/App';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { RegisterVotersContainer } from '../containers/RegisterVotersContainer';
 import { CaptureVotesContainer } from '../containers/CaptureVotesContainer';
-import { ElectionCreationContainer } from '../containers/ElectionCreationContainer';
+import { ElectionComponent } from './ElectionComponent';
 
 export type MainComponentProps = {
   voters: Voter[];
+  elections: Election[];
 };
 
 export function MainComponent(props: MainComponentProps) {
+  // FIXME: delete these
   console.log(props.voters);
+  console.log(props.elections);
+
   return (
     <>
       <h1>Majority Wins </h1>
@@ -52,7 +56,7 @@ export function MainComponent(props: MainComponentProps) {
               <CaptureVotesContainer />
             </Route>
             <Route path="/elections">
-              <ElectionCreationContainer />
+              <ElectionComponent elections={props.elections} />
             </Route>
           </Switch>
         </div>

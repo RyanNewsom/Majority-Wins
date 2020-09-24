@@ -1,6 +1,6 @@
 import { Reducer, combineReducers } from 'redux';
 
-import { isRefreshVotersDoneAction } from '../actions/AppActions';
+import { isRefreshElectionsDoneAction, isRefreshVotersDoneAction } from '../actions/AppActions';
 import { Voter, AppState, Election } from '../models/App';
 import { AppActions } from '../actions/AppActions';
 
@@ -13,9 +13,9 @@ export const voterReducer: Reducer<Voter[], AppActions> = (voters = [], action) 
 };
 
 export const electionReducer: Reducer<Election[], AppActions> = (elections = [], action) => {
-  // if (isRefreshVotersDoneAction(action)) {
-  //   return action.payload.voters;
-  // }
+  if (isRefreshElectionsDoneAction(action)) {
+    return action.payload.elections;
+  }
 
   return elections;
 };
