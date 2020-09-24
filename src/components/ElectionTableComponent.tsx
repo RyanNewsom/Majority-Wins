@@ -10,7 +10,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,13 +17,17 @@ import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import React from 'react';
 import { Election } from '../models/App';
 
-export type ElectionComponentProps = {
+export type ElectionTableComponentProps = {
   elections: Election[];
   expandedElectionId: number;
   onExpandElectionRow: (expandedElectionId: number) => void;
 };
 
-export function ElectionComponent({ elections, expandedElectionId, onExpandElectionRow }: ElectionComponentProps) {
+export function ElectionTableComponent({
+  elections,
+  expandedElectionId,
+  onExpandElectionRow,
+}: ElectionTableComponentProps) {
   return (
     <Container maxWidth="md">
       <h2>Current Elections</h2>
@@ -50,7 +53,6 @@ export function ElectionComponent({ elections, expandedElectionId, onExpandElect
           </TableBody>
         </Table>
       </TableContainer>
-      <CreateElectionComponent />
     </Container>
   );
 }
@@ -118,29 +120,5 @@ function ElectionRow({ election, expandedElectionId, onExpandElectionRow }: Elec
         </TableCell>
       </TableRow>
     </>
-  );
-}
-
-function CreateElectionComponent() {
-  // const [newElection, setNewElection] = useState<ElectionForm>({
-  //   name: '',
-  //   year: '2020',
-  //   description: '',
-  //   questions: [],
-  // });
-
-  // const change = (event: SyntheticEvent) => {
-  //   console.log(event.target.value);
-  // };
-
-  return (
-    <Container maxWidth="md">
-      <h2>Create an Election</h2>
-      <h3>Election Info</h3>
-      <TextField label="Name" fullWidth color="primary" />
-      <TextField label="Year" fullWidth color="primary" type="number" />
-      <TextField label="Description" fullWidth color="primary" />
-      <h3>Questions</h3>
-    </Container>
   );
 }

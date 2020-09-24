@@ -5,6 +5,7 @@ import { AppState, Election, Voter } from '../models/App';
 
 import { MainComponent } from '../components/MainComponent';
 import * as AppActions from '../actions/AppActions';
+import * as ElectionActions from '../actions/ElectionActions';
 
 export function AppContainer() {
   const voters = useSelector<AppState, Voter[]>(state => state.voters);
@@ -14,7 +15,8 @@ export function AppContainer() {
 
   const boundActionsMap = bindActionCreators(
     {
-      onExpandElectionRow: AppActions.createExpandElectionAction,
+      onExpandElectionRow: ElectionActions.createExpandElectionAction,
+      onCreateElection: ElectionActions.appendElection,
       //   onDelete: CarToolActions.deleteCar,
       //   onSave: CarToolActions.updateCar,
       //   addNewCar: CarToolActions.addNewCar,
@@ -27,7 +29,7 @@ export function AppContainer() {
 
   useEffect(() => {
     dispatch(AppActions.refreshVoters());
-    dispatch(AppActions.refreshElections());
+    dispatch(ElectionActions.refreshElections());
   }, [dispatch]);
 
   return (

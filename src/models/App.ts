@@ -17,9 +17,6 @@ export type Voter = {
   birthDate: string;
   email: string;
   phone: string;
-
-  // electionIds that this user has voted in
-  votedIn: number[];
 };
 
 // election create does a PUT w/ an election
@@ -27,18 +24,13 @@ export type Voter = {
 export type Election = {
   id: number;
   name: string;
-  year?: string;
-  description?: string;
+  year: number;
+  description: string;
   questions: Question[];
   voterIds: number[];
 };
 
-export type ElectionForm = {
-  name: string;
-  year?: string;
-  description?: string;
-  questions: Question[];
-};
+export type ElectionForm = Omit<Election, 'id' | 'voterIds'>;
 
 export type Question = {
   id: number;
