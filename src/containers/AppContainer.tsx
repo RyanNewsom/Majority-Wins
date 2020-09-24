@@ -9,10 +9,12 @@ import * as AppActions from '../actions/AppActions';
 export function AppContainer() {
   const voters = useSelector<AppState, Voter[]>(state => state.voters);
   const elections = useSelector<AppState, Election[]>(state => state.elections);
+  const expandedElectionId = useSelector<AppState, number>(state => state.expandedElectionId);
   const dispatch = useDispatch();
 
   const boundActionsMap = bindActionCreators(
     {
+      onExpandElectionRow: AppActions.createExpandElectionAction,
       //   onDelete: CarToolActions.deleteCar,
       //   onSave: CarToolActions.updateCar,
       //   addNewCar: CarToolActions.addNewCar,
@@ -28,5 +30,7 @@ export function AppContainer() {
     dispatch(AppActions.refreshElections());
   }, [dispatch]);
 
-  return <MainComponent voters={voters} elections={elections} {...boundActionsMap} />;
+  return (
+    <MainComponent voters={voters} elections={elections} expandedElectionId={expandedElectionId} {...boundActionsMap} />
+  );
 }

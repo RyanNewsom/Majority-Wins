@@ -3,6 +3,7 @@ export type AppState = {
   // currentVoter?: Voter;
   voters: Voter[];
   elections: Election[];
+  expandedElectionId: number;
 };
 
 export type Voter = {
@@ -29,7 +30,14 @@ export type Election = {
   year?: string;
   description?: string;
   questions: Question[];
-  voterIds: number;
+  voterIds: number[];
+};
+
+export type ElectionForm = {
+  name: string;
+  year?: string;
+  description?: string;
+  questions: Question[];
 };
 
 export type Question = {

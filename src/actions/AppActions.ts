@@ -53,6 +53,7 @@ export const refreshVoters = () => {
 
 export const REFRESH_ELECTIONS_REQUEST_ACTION = 'REFRESH_ELECTIONS_REQUEST';
 export const REFRESH_ELECTIONS_DONE_ACTION = 'REFRESH_ELECTIONS_DONE';
+export const EXPAND_ELECTION_ACTION = 'EXPAND_ELECTION';
 
 export type RefreshElectionsRequestAction = Action<string>;
 export interface RefreshElectionsDoneAction extends Action<string> {
@@ -60,9 +61,15 @@ export interface RefreshElectionsDoneAction extends Action<string> {
     elections: Election[];
   };
 }
+export interface ExpandElectionAction extends Action<string> {
+  payload: {
+    expandedElectionId: number;
+  };
+}
 
 export type CreateRefreshElectionsRequestAction = () => RefreshElectionsRequestAction;
 export type CreateRefreshElectionsDoneAction = (election: Election[]) => RefreshElectionsDoneAction;
+export type CreateExpandElectionAction = (expandedElectionId: number) => ExpandElectionAction;
 
 export const createRefreshElectionsRequestAction: CreateRefreshElectionsRequestAction = () => ({
   type: REFRESH_ELECTIONS_REQUEST_ACTION,
@@ -75,12 +82,23 @@ export const createRefreshElectionsDoneAction: CreateRefreshElectionsDoneAction 
   },
 });
 
+export const createExpandElectionAction: CreateExpandElectionAction = (expandedElectionId: number) => ({
+  type: EXPAND_ELECTION_ACTION,
+  payload: {
+    expandedElectionId,
+  },
+});
+
 export function isRefreshElectionsRequestAction(action: Action<string>): action is RefreshElectionsRequestAction {
   return [REFRESH_ELECTIONS_REQUEST_ACTION].includes(action.type);
 }
 
 export function isRefreshElectionsDoneAction(action: Action<string>): action is RefreshElectionsDoneAction {
   return [REFRESH_ELECTIONS_DONE_ACTION].includes(action.type);
+}
+
+export function isExpandElectionAction(action: Action<string>): action is ExpandElectionAction {
+  return [EXPAND_ELECTION_ACTION].includes(action.type);
 }
 
 export const refreshElections = () => {

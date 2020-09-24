@@ -9,6 +9,8 @@ import { ElectionComponent } from './ElectionComponent';
 export type MainComponentProps = {
   voters: Voter[];
   elections: Election[];
+  expandedElectionId: number;
+  onExpandElectionRow: (expandedElectionId: number) => void;
 };
 
 export function MainComponent(props: MainComponentProps) {
@@ -26,7 +28,11 @@ export function MainComponent(props: MainComponentProps) {
             <CaptureVotesContainer />
           </Route>
           <Route path="/elections">
-            <ElectionComponent elections={props.elections} />
+            <ElectionComponent
+              elections={props.elections}
+              expandedElectionId={props.expandedElectionId}
+              onExpandElectionRow={props.onExpandElectionRow}
+            />
           </Route>
         </Switch>
       </>
