@@ -4,6 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,7 +26,9 @@ export default function Navbar() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Majority Wins
+            <Link href="/" color="inherit">
+              Majority Wins
+            </Link>
           </Typography>
           <Button
             className={classes.navButton}
