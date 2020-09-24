@@ -1,7 +1,7 @@
 {
   "voters": [
     {
-      "id": 1,
+      "id": 0,
       "firstName": "Fox",
       "lastName": "Mulder",
       "address": "2630 Hegal Place, Apt. 42",
@@ -9,13 +9,10 @@
       "state": "Virginia",
       "birthDate": "10/13/1961",
       "email": "mulder@fbi.gov",
-      "phone": "208-867-5309",
-      "votedIn": [
-        1
-      ]
+      "phone": "208-867-5309"
     },
     {
-      "id": 2,
+      "id": 1,
       "firstName": "Dana",
       "lastName": "Scully",
       "address": "1213 37th Place",
@@ -23,13 +20,10 @@
       "state": "Maryland",
       "birthDate": "2/23/1964",
       "email": "scully@fbi.gov",
-      "phone": "208-420-6969",
-      "votedIn": [
-        1
-      ]
+      "phone": "208-420-6969"
     },
     {
-      "id": 3,
+      "id": 2,
       "firstName": "John",
       "lastName": "Byers",
       "address": "123 Nowhere St.",
@@ -37,60 +31,66 @@
       "state": "Nevada",
       "birthDate": "1/1/1970",
       "email": "byers@lone-gunmen.org",
-      "phone": "151-420-6969",
-      "votedIn": []
+      "phone": "151-420-6969"
     }
   ],
   "elections": [
     {
       "id": 1,
       "name": "X-Files Monsters",
+      "year": 2020,
       "description": "The X-Files have many great monsters, vote on the ones which you find terrifying",
       "questions": [
         {
-          "id": 1,
+          "id": 0,
           "content": "Flukeman is the most terrifying X-Files monster",
-          "yes": 1,
+          "yes": 2,
           "no": 0
         },
         {
-          "id": 2,
+          "id": 1,
           "content": "Eugene Victor Tooms is the most terrifying X-Files monster",
           "yes": 0,
-          "no": 1
+          "no": 2
         },
         {
-          "id": 3,
+          "id": 2,
           "content": "Mrs. Peacock is the most terrifying X-Files monster",
-          "yes": 1,
-          "no": 1
+          "yes": 0,
+          "no": 2
         }
+      ],
+      "voterIds": [
+        0,
+        1
       ]
     },
     {
       "id": 2,
       "name": "X-Files Villains",
+      "year": 2020,
       "description": "Some people think members of The Syndicate are actually good, do you?",
       "questions": [
         {
-          "id": 1,
+          "id": 0,
           "content": "Cigarette Smoking Man is an evil villain in X-Files",
           "yes": 0,
           "no": 0
         },
         {
-          "id": 2,
+          "id": 1,
           "content": "Alex Krycek is an evil villain in X-Files",
           "yes": 0,
           "no": 0
         },
         {
-          "id": 3,
+          "id": 2,
           "content": "Mr. X is an evil villain in X-Files",
           "yes": 0,
           "no": 0
         }
-      ]
+      ],
+      "voterIds": []
     }
   ]
 }
