@@ -1,9 +1,6 @@
 import { Reducer, combineReducers } from "redux";
 
-import {
-  isRefreshItemsDoneAction,
-  isRefreshItemsRequestAction,
-} from "../actions/AppActions";
+import { isRefreshItemsDoneAction } from "../actions/AppActions";
 import { Item, AppState } from "../models/App";
 import { AppActions } from "../actions/AppActions";
 
