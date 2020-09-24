@@ -1,20 +1,27 @@
-import { Reducer, combineReducers } from "redux";
+import { Reducer, combineReducers } from 'redux';
 
-import { isRefreshItemsDoneAction } from "../actions/AppActions";
-import { Item, AppState } from "../models/App";
-import { AppActions } from "../actions/AppActions";
+import { isRefreshVotersDoneAction } from '../actions/AppActions';
+import { Voter, AppState, Election } from '../models/App';
+import { AppActions } from '../actions/AppActions';
 
-export const itemReducer: Reducer<Item[], AppActions> = (
-  items = [],
-  action
-) => {
-  if (isRefreshItemsDoneAction(action)) {
-    return action.payload.items;
+export const voterReducer: Reducer<Voter[], AppActions> = (voters = [], action) => {
+  if (isRefreshVotersDoneAction(action)) {
+    return action.payload.voters;
   }
 
-  return items;
+  return voters;
+};
+
+export const electionReducer: Reducer<Election[], AppActions> = (elections = [], action) => {
+  // if (isRefreshVotersDoneAction(action)) {
+  //   return action.payload.voters;
+  // }
+
+  return elections;
 };
 
 export const appReducer: Reducer<AppState, AppActions> = combineReducers({
-  items: itemReducer,
+  // currentVoter: undefined,
+  voters: voterReducer,
+  elections: electionReducer,
 });

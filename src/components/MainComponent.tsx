@@ -1,17 +1,21 @@
-import React from "react";
-import { Item } from "../models/App";
+import React from 'react';
+import { Voter } from '../models/App';
 
 export type MainComponentProps = {
-  items: Item[];
+  voters: Voter[];
 };
 
 export function MainComponent(props: MainComponentProps) {
-  console.log(props.items);
+  console.log(props.voters);
   return (
     <>
       <h1>hello</h1>
-      {props.items?.map((item) => {
-        return <p>{item.title}</p>;
+      {props.voters?.map(voter => {
+        return (
+          <p>
+            {voter.firstName} {voter.lastName}
+          </p>
+        );
       })}
     </>
   );
