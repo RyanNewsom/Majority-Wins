@@ -1,10 +1,11 @@
 import React from "react";
 import { Voter } from "../models/App";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { RegisterVotersContainer } from "../containers/RegisterVotersContainer";
 import { CaptureVotesContainer } from "../containers/CaptureVotesContainer";
 import { ElectionCreationContainer } from "../containers/ElectionCreationContainer";
 import NavBar from "./NavBar";
+
 export type MainComponentProps = {
   voters: Voter[];
 };
