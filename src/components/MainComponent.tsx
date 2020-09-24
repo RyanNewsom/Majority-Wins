@@ -20,7 +20,7 @@ export function MainComponent(props: MainComponentProps) {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/voters">
-            <RegisterVotersComponent />
+            <RegisterVotersComponent voters={props.voters} />
           </Route>
           <Route path="/capturevotes">
             <CaptureVotesContainer />

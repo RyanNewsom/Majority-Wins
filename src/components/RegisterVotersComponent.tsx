@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { RegisterVoterFormComponent } from "./RegisterVoterFormComponent";
 import { RegisteredVotersTableComponent } from "./RegisteredVotersTableComponent";
+import { Voter } from "../models/App";
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -49,7 +50,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function RegisterVotersComponent() {
+export type RegisterVotersProps = {
+  voters: Voter[];
+};
+
+export function RegisterVotersComponent(props: RegisterVotersProps) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -73,32 +78,7 @@ export function RegisterVotersComponent() {
         <RegisterVoterFormComponent />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <RegisteredVotersTableComponent
-          voters={[
-            {
-              id: 0,
-              firstName: "Ryan",
-              lastName: "Newsom",
-              address: "123 main st",
-              city: "San Diego",
-              birthDate: "06/04/1993",
-              email: "rydev@gmail.com",
-              phone: "8586037832",
-              //votedIn: [],
-            },
-            {
-              id: 1,
-              firstName: "John",
-              lastName: "Snow",
-              address: "21 main st",
-              city: "The Wall",
-              birthDate: "01/04/1992",
-              email: "johnsnow@thewall.org",
-              phone: "1234567890",
-              //votedIn: [],
-            },
-          ]}
-        />
+        <RegisteredVotersTableComponent voters={props.voters} />
       </TabPanel>
     </div>
   );
