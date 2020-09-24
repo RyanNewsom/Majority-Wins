@@ -1,8 +1,6 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
 import { Provider } from "react-redux";
 
 import { appStore } from "./stores/appStore";
