@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { bindActionCreators } from "redux";
 import { useSelector, useDispatch } from "react-redux";
-// import CarTool from "../components/CarTool";
 import { Item, AppState } from "../models/App";
 
-// import { CarToolState } from "../models/carTool";
-import { itemSelector } from "../selectors/itemSelector";
 import { MainComponent } from "../components/MainComponent";
 import * as AppActions from "../actions/AppActions";
 
