@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { RegisterVotersComponent } from "./RegisterVotersComponent";
 import { CaptureVotesContainer } from "../containers/CaptureVotesContainer";
 import NavBar from "./NavBar";
-import { ElectionTableComponent } from "./ElectionTableComponent";
 import { CreateElectionComponent } from "./CreateElectionComponent";
 import { TableSorting } from "./RegisteredVotersTableComponent";
+import { ElectionTableComponent } from "./ElectionTableComponent";
 
 export type MainComponentProps = {
   voters: Voter[];
@@ -26,6 +26,7 @@ export type MainComponentProps = {
   registeredVotersVotersSelected: (voters: number[]) => void;
   registeredVotersTablePageUpdated: (page: number) => void;
   registeredVotersRowsPerPageUpdated: (rows: number) => void;
+  onAddVoter: (voter: Voter) => void;
 };
 
 export function MainComponent(props: MainComponentProps) {
@@ -56,6 +57,7 @@ export function MainComponent(props: MainComponentProps) {
               registeredVotersRowsPerPageUpdated={
                 props.registeredVotersRowsPerPageUpdated
               }
+              onAddVoter={props.onAddVoter}
             />
           </Route>
           <Route path="/capturevotes">

@@ -40,6 +40,8 @@ export function AppContainer() {
     {
       onExpandElectionRow: ElectionActions.createExpandElectionAction,
       onCreateElection: ElectionActions.appendElection,
+      onAddCar: AppActions.addVoter,
+      onAddVoter: AppActions.addVoter,
       //   onDelete: CarToolActions.deleteCar,
       //   onSave: CarToolActions.updateCar,
       //   addNewCar: CarToolActions.addNewCar,
