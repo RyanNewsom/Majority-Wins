@@ -1,3 +1,5 @@
+import { TableSorting } from "../components/RegisteredVotersTableComponent";
+
 export type AppState = {
   // the currently "logged in" voter
   // currentVoter?: Voter;
@@ -15,7 +17,6 @@ export type Voter = {
   lastName: string;
   address: string;
   city: string;
-  state?: string;
   birthDate: string;
   email: string;
   phone: string;
@@ -32,7 +33,7 @@ export type Election = {
   voterIds: number[];
 };
 
-export type ElectionForm = Omit<Election, 'id'>;
+export type ElectionForm = Omit<Election, "id">;
 
 export type Question = {
   id: number;
@@ -40,7 +41,6 @@ export type Question = {
   yes: number;
   no: number;
 };
-
 
 export type VoterFormData = {
   firstName: string;
@@ -53,5 +53,4 @@ export type VoterFormData = {
   phone: string;
 };
 
-
-export type NewVoter = Omit<Voter, 'id'>;
+export type NewVoter = Omit<Voter, "id">;

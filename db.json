@@ -1,40 +1,17 @@
 {
   "voters": [
     {
-      "id": 0,
-      "firstName": "Fox",
-      "lastName": "Mulder",
-      "address": "2630 Hegal Place, Apt. 42",
-      "city": "Alexandria",
-      "state": "Virginia",
-      "birthDate": "10/13/1961",
-      "email": "mulder@fbi.gov",
-      "phone": "208-867-5309"
-    },
-    {
       "id": 1,
-      "firstName": "Dana",
-      "lastName": "Scully",
+      "firstName": "Danaa",
+      "lastName": "Scullys",
       "address": "1213 37th Place",
       "city": "Bethesda",
-      "state": "Maryland",
       "birthDate": "2/23/1964",
       "email": "scully@fbi.gov",
       "phone": "208-420-6969"
     },
     {
       "id": 2,
-      "firstName": "John",
-      "lastName": "Byers",
-      "address": "123 Nowhere St.",
-      "city": "Area 51",
-      "state": "Nevada",
-      "birthDate": "1/1/1970",
-      "email": "byers@lone-gunmen.org",
-      "phone": "151-420-6969"
-    },
-    {
-      "id": "sdfsdfsdfsdf",
       "firstName": "sdfsdf",
       "lastName": "sdfsdf",
       "address": "wswdf",

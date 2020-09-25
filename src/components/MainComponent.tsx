@@ -5,11 +5,13 @@ import { RegisterVotersComponent } from "./RegisterVotersComponent";
 import { CaptureVotesComponent } from "./CaptureVotesComponent";
 import NavBar from "./NavBar";
 import { CreateElectionComponent } from "./CreateElectionComponent";
+import { TableSorting } from "./RegisteredVotersTableComponent";
 import { ElectionTableComponent } from "./ElectionTableComponent";
 
 export type MainComponentProps = {
   voters: Voter[];
   elections: Election[];
+
   expandedElectionId: number;
   currentElection: Election;
   currentVoter: Voter;
@@ -33,7 +35,27 @@ export function MainComponent(props: MainComponentProps) {
           <Route path="/voters">
             <RegisterVotersComponent
               voters={props.voters}
+              registeredVotersRowsPerPage={props.registeredVotersRowsPerPage}
+              registeredVotersSelectedVoters={
+                props.registeredVotersSelectedVoters
+              }
+              registeredVotersTablePage={props.registeredVotersTablePage}
+              registeredVotersTableSort={props.registeredVotersTableSort}
+              registeredVotersTabSelected={props.registerVotersTabSelected}
+              registeredVotersSelectedTab={props.registeredVotersSelectedTab}
+              registeredVotersDeleteVoters={props.registeredVotersDeleteVoters}
+              registeredVotersSortSelected={props.registeredVotersSortSelected}
+              registeredVotersSelected={props.registeredVotersVotersSelected}
+              registeredVotersTablePageUpdated={
+                props.registeredVotersTablePageUpdated
+              }
+              registeredVotersRowsPerPageUpdated={
+                props.registeredVotersRowsPerPageUpdated
+              }
+              registeredVotersRowEdited={props.registeredVotersRowEdited}
               onAddVoter={props.onAddVoter}
+              onSaveVoter={props.onSaveVoter}
+              registeredVoterBeingEdited={props.registeredVoterBeingEdited}
             />
           </Route>
           <Route path="/capturevotes">

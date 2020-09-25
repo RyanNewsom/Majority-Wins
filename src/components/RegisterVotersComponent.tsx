@@ -7,21 +7,24 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { RegisterVoterFormComponent } from "./RegisterVoterFormComponent";
-import { RegisteredVotersTableComponent } from "./RegisteredVotersTableComponent";
-import { Voter } from '../models/App';
+import {
+  RegisteredVotersTableComponent,
+  TableSorting,
+} from "./RegisteredVotersTableComponent";
+import { Voter } from "../models/App";
 
 function TabPanel(props: any) {
-  const { children, value, index, ...other } = props;
+  const { children, selectedTab, index, ...other } = props;
 
   return (
     <div
       role="tabpanel"
-      hidden={value !== index}
+      hidden={selectedTab !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
+      {selectedTab === index && (
         <Box p={3}>
           <Typography>{children}</Typography>
         </Box>
@@ -33,7 +36,7 @@ function TabPanel(props: any) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  selectedTab: PropTypes.any.isRequired,
 };
 
 function a11yProps(index: number) {
@@ -50,42 +53,71 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export type VoterProps = {
-  voters: Voter[],
-  onAddVoter: (voter: Voter) => void,
-}
-export function RegisterVotersComponent(props: VoterProps) {
+export type RegisterVotersProps = {
+  voters: Voter[];
+  onAddVoter: (voter: Voter) => void;
+  onSaveVoter: (voterForm: Voter) => void;
+  registeredVotersTableSort: TableSorting;
+  registeredVotersTablePage: number;
+  registeredVotersRowsPerPage: number;
+  registeredVotersSelectedVoters: number[];
+  registeredVotersSelectedTab: number;
+  registeredVoterBeingEdited: Voter | null;
+  registeredVotersTabSelected: (tabSelected: number) => void;
+  registeredVotersDeleteVoters: (voters: number[]) => void;
+  registeredVotersSortSelected: (sort: TableSorting) => void;
+  registeredVotersSelected: (voters: number[]) => void;
+  registeredVotersTablePageUpdated: (page: number) => void;
+  registeredVotersRowsPerPageUpdated: (rows: number) => void;
+  registeredVotersRowEdited: (voter: Voter) => void;
+};
+
+export function RegisterVotersComponent(props: RegisterVotersProps) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
 
   const handleChange = (event: any, newValue: number) => {
-    setValue(newValue);
+    props.registeredVotersTabSelected(newValue);
   };
-  
-  const {
-    onAddVoter: addVoter
-  } = props;
-  
+
+  const { onAddVoter: addVoter } = props;
+
   return (
     <>
-    <div className={classes.root}>
-      <AppBar position="static" elevation={0}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="simple tabs example"
-        >
-          <Tab label="Register Voter" {...a11yProps(0)} />
-          <Tab label="View Registered Voters" {...a11yProps(1)} />
-        </Tabs>
-      </AppBar>
-      <TabPanel value={value} index={0}>
-        <RegisterVoterFormComponent buttonText="Add Voter" onSubmitVoter={addVoter} />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <RegisteredVotersTableComponent />
-      </TabPanel>
-    </div>
+      <div className={classes.root}>
+        <AppBar position="static" elevation={0}>
+          <Tabs
+            value={props.registeredVotersSelectedTab}
+            onChange={handleChange}
+            aria-label="simple tabs example"
+          >
+            <Tab label="Register Voter" {...a11yProps(0)} />
+            <Tab label="View Registered Voters" {...a11yProps(1)} />
+          </Tabs>
+        </AppBar>
+        <TabPanel selectedTab={props.registeredVotersSelectedTab} index={0}>
+          <RegisterVoterFormComponent
+            buttonText="Add Voter"
+            onSubmitVoter={addVoter}
+            voterBeingEdited={props.registeredVoterBeingEdited}
+            onSaveVoter={props.onSaveVoter}
+          />
+        </TabPanel>
+        <TabPanel selectedTab={props.registeredVotersSelectedTab} index={1}>
+          <RegisteredVotersTableComponent
+            voters={props.voters}
+            sort={props.registeredVotersTableSort}
+            selectedVoters={props.registeredVotersSelectedVoters}
+            tablePage={props.registeredVotersTablePage}
+            rowsPerPage={props.registeredVotersRowsPerPage}
+            deleteVoters={props.registeredVotersDeleteVoters}
+            sortSelected={props.registeredVotersSortSelected}
+            votersSelected={props.registeredVotersSelected}
+            tablePageUpdated={props.registeredVotersTablePageUpdated}
+            rowsPerPageUpdated={props.registeredVotersRowsPerPageUpdated}
+            editPressed={props.registeredVotersRowEdited}
+          />
+        </TabPanel>
+      </div>
     </>
   );
 }
