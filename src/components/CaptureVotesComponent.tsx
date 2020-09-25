@@ -1,80 +1,130 @@
 import React, { useState, ChangeEvent} from "react";
-import { Election, Voter, Question } from '../models/App';
+import { Election, Voter } from '../models/App';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
+import { BallotComponent }from './BallotComponent';
+import '../styles/layout.css';
 
 export type CaptureVotesComponentProps = {
-  currentVoter: Voter,
-  currentElection: Election,
+  voters: Voter[],
   elections: Election[],
-  onCaptureElectionVotes: (election: Election ) => void;
+  currentElection: Election,
+  currentVoter: Voter,
+  onCaptureElectionVotes: (election: Election ) => void,
+  onHandleDrodownChange: (election: Election ) => void,
+  onValidateVoter: (voter: Voter ) => void,
+  onHandleReturn: () => void,
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      width: '100%',
-      maxWidth: 800,
-      backgroundColor: theme.palette.background.paper,
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
     },
   }),
 );
 
 export function CaptureVotesComponent(props:CaptureVotesComponentProps ) {
+
+ // console.log('elections', props.elections);
   const classes = useStyles();
-  const [checked, setChecked] = useState([] as Question[]);
+  const [ inputEmail, setInputEmail ] = useState('');
+  const [ hasVoted, setHasVoted ] = useState(true);
 
-  const handleQuestionCheckToggle = (question: Question) => () => {
-    const currentIndex = checked.indexOf(question);
-    const newChecked = [...checked];
+  const currentElectionVoteIds = props.currentElection.voterIds;
+  const hasCurrentUserVoted = currentElectionVoteIds ? currentElectionVoteIds.includes(props.currentVoter.id) : false;
 
-    if (currentIndex === -1) {
-      newChecked.push(question);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
+  const handleDrodownChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    props.onHandleDrodownChange(props.elections.filter(election => election.name === event.target.value)[0]);
+  }
+  console.log('hasCurrentUserVoted', hasCurrentUserVoted);
 
-    setChecked(newChecked);
+  const isValidVoter = props.currentVoter && !(Object.keys(props.currentVoter).length === 0);
+  const isCurrentElection = props.currentElection && !(Object.keys(props.currentElection).length === 0);
+  let invalidVoterErrorMessage = 'Invalid Voter';
+
+  type HTMLFormControls =
+  HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+  const change = (e: ChangeEvent<HTMLFormControls>) => {
+    setInputEmail(e.target.value);
+    validateVoterEmail(e.target.value);
   };
 
-  const castVote = () => {
-    checked.map(item => item.yes = item.yes + 1);
-    // console.log(checked);
-    // console.log(props.currentVoter.id, props.currentElection.id);
-    // console.log(props.currentElection);
-    // props.onCaptureElectionVotes(props.currentElection);
+  const validateVoterEmail = (inputEmail: string) => {
+    const voters = props.voters.filter(voter => voter.email === inputEmail);
+    if(voters.length > 0) {
+      props.onValidateVoter(voters[0]);
+    }
   }
 
+  const validateVoted = () => {
+    if(props.currentElection.voterIds.includes(props.currentVoter.id)){
+      props.onValidateVoter({} as Voter);
+      setHasVoted(true);
+      setInputEmail('');
+    }else {
+      setHasVoted(false);
+    }
+  }
 
   return (
-    <>
-      <h1>Welcome {props.currentVoter.firstName} {props.currentVoter.lastName}! to {props.currentElection.name}</h1>
-      <p>Lets Capture Votes !</p>
-
-      <List dense className={classes.root}>
-        {props.currentElection.questions.concat().map((question, index ) => {
-          const labelId = `checkbox-list-secondary-label-${index}`;
-          return (
-            <ListItem key={index} button>
-              <ListItemText id={labelId} primary={`${index + 1}.  ${question.content}`} />
-              <ListItemSecondaryAction>
-              <Checkbox
-                edge="end"
-                onChange={handleQuestionCheckToggle(question)}
-                checked={checked.indexOf(question) !== -1}
-                inputProps={{ 'aria-labelledby': labelId }}
-              />
-              </ListItemSecondaryAction>
-            </ListItem>
-          );
-        })}
-      </List>
-      <Button variant="contained" color="primary" onClick={() => castVote()}>Cast Vote</Button>
-    </>
+    <div className="container">
+      <header id="page-header">
+        <h1>Capture Votes</h1>
+      </header>
+      <main id="content">
+        <section>
+          <h2 className="section-title">Select a Ballot from the dropdown:</h2>
+          <Select
+              labelId="election-list-select-label"
+              id="select-election"
+              value={isCurrentElection ? props.currentElection.name : ""}
+              onChange={handleDrodownChange}
+              className={classes.selectEmpty}
+            >
+            <MenuItem value=""><em>None</em></MenuItem>
+            {props.elections.map(election => <MenuItem key={election.id} value={election.name}>{election.name}</MenuItem>)}
+          </Select>
+          {isCurrentElection &&
+            <p>
+              <label>You have selected: {props.currentElection.name}</label><br/> <br/>
+              {/* <Button variant="contained" color="primary" onClick={() => beginVoting()}>Begin Voting</Button> */}
+            </p>
+          }
+        </section>
+        <section>
+          {isCurrentElection &&
+            <>
+              <label>Enter Email Address: </label>
+              <TextField id="email-input" label="email address" value={inputEmail} onChange={change}/>
+            </>
+          }
+          {isCurrentElection && inputEmail && !isValidVoter && <p>{invalidVoterErrorMessage}</p>}
+          {isValidVoter &&
+              <Button variant="contained" color="primary" onClick={() => validateVoted()}>Begin Voting</Button>
+          }
+        </section>
+      </main>
+      <aside id="sidebar">
+        {
+          (isValidVoter && !hasVoted ) &&
+            <BallotComponent
+              onCaptureElectionVotes={props.onCaptureElectionVotes}
+              onHandleReturn={props.onHandleReturn}
+              elections={props.elections}
+              currentElection={props.currentElection}
+              currentVoter={props.currentVoter}
+          />
+        }
+      </aside>
+    </div>
   )
 }

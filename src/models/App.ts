@@ -4,6 +4,8 @@ export type AppState = {
   voters: Voter[];
   elections: Election[];
   expandedElectionId: number;
+  currentElection: Election;
+  currentVoter: Voter;
 };
 
 export type Voter = {

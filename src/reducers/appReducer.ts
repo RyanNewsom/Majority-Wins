@@ -6,6 +6,7 @@ import {
   isExpandElectionAction,
   isRefreshElectionsDoneAction,
 } from '../actions/ElectionActions';
+import { isSetCurrentElectionAction, isSetCurrentVoterAction } from '../actions/CaptureVotesActions';
 import { Voter, AppState, Election } from '../models/App';
 import { AppActions } from '../actions/AppActions';
 
@@ -43,9 +44,27 @@ export const expandedElectionIdReducer: Reducer<number, AppActions> = (expandedE
   return expandedElectionId;
 };
 
+export const setCurrentElectionReducer: Reducer<Election, AppActions> = (election = {} as Election, action) => {
+  if (isSetCurrentElectionAction(action)) {
+    return action.payload.election;
+  }
+
+  return election;
+};
+
+export const setCurrentVoterReducer: Reducer<Voter, AppActions> = (voter = {} as Voter, action) => {
+  if (isSetCurrentVoterAction(action)) {
+    return action.payload.voter;
+  }
+
+  return voter;
+};
+
 export const appReducer: Reducer<AppState, AppActions> = combineReducers({
   // currentVoter: undefined,
   voters: voterReducer,
   elections: electionReducer,
   expandedElectionId: expandedElectionIdReducer,
+  currentElection: setCurrentElectionReducer,
+  currentVoter: setCurrentVoterReducer,
 });

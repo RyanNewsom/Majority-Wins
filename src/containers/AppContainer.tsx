@@ -15,21 +15,25 @@ export function AppContainer() {
   const expandedElectionId = useSelector<AppState, number>(
     (state) => state.expandedElectionId
   );
+  const currentElection = useSelector<AppState, Election>(
+    (state) => state.currentElection
+  );
+  const currentVoter = useSelector<AppState, Voter>(
+    (state) => state.currentVoter
+  );
+
   const dispatch = useDispatch();
 
   const boundActionsMap = bindActionCreators(
     {
       onExpandElectionRow: ElectionActions.createExpandElectionAction,
       onCreateElection: ElectionActions.appendElection,
+      onHandleDrodownChange: CaptureVotesActions.createSetCurrentElectionAction,
+      onValidateVoter: CaptureVotesActions.createSetCurrentVoterAction,
       onCaptureElectionVotes: CaptureVotesActions.submitElectionVotes,
       onAddCar: AppActions.addVoter,
       onAddVoter: AppActions.addVoter,
-      //   onDelete: CarToolActions.deleteCar,
-      //   onSave: CarToolActions.updateCar,
-      //   addNewCar: CarToolActions.addNewCar,
-      //   onHeaderClicked: CarToolActions.createSortAction,
-      //   setCarBeingEdited: CarToolActions.createEditedAction,
-      //   cancel: CarToolActions.createCancelAction,
+      onHandleReturn: CaptureVotesActions.handleReturn,
     },
     dispatch
   );
@@ -44,6 +48,8 @@ export function AppContainer() {
       voters={voters}
       elections={elections}
       expandedElectionId={expandedElectionId}
+      currentElection={currentElection}
+      currentVoter={currentVoter}
       {...boundActionsMap}
     />
   );
