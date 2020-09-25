@@ -3,6 +3,8 @@ import { TableSorting } from "../components/RegisteredVotersTableComponent";
 export type AppState = {
   // the currently "logged in" voter
   // currentVoter?: Voter;
+  currentElection: Election;
+  currentVoter: Voter;
   voters: Voter[];
   elections: Election[];
   expandedElectionId: number;

@@ -1,3 +1,4 @@
+import { isSetCurrentElectionAction, isSetCurrentVoterAction } from '../actions/CaptureVotesActions';
 import { Reducer, combineReducers } from "redux";
 import { Voter, AppState, Election } from "../models/App";
 import { AppActions } from "../actions/AppActions";
@@ -61,6 +62,7 @@ export const registeredVotersTabReducer: Reducer<
 
   return tabSelected;
 };
+
 
 export const expandedElectionIdReducer: Reducer<number, AppActions> = (
   expandedElectionId = 0,
@@ -143,11 +145,30 @@ export const registeredVoterBeingEditedReducer: Reducer<
   return userBeingEdited || null;
 };
 
+
+export const setCurrentElectionReducer: Reducer<Election, AppActions> = (election = {} as Election, action) => {
+  if (isSetCurrentElectionAction(action)) {
+    return action.payload.election;
+  }
+
+  return election;
+};
+
+export const setCurrentVoterReducer: Reducer<Voter, AppActions> = (voter = {} as Voter, action) => {
+  if (isSetCurrentVoterAction(action)) {
+    return action.payload.voter;
+  }
+
+  return voter;
+};
+
 export const appReducer: Reducer<AppState, AppActions> = combineReducers({
   voters: voterReducer,
   elections: electionReducer,
   registeredVotersSelectedTab: registeredVotersTabReducer,
   expandedElectionId: expandedElectionIdReducer,
+  currentElection: setCurrentElectionReducer,
+  currentVoter: setCurrentVoterReducer,
   registeredVotersTableSort: registeredVotersTableSortReducer,
   registeredVotersTablePage: registeredVotersTablePageReducer,
   registeredVotersRowsPerPage: registeredVotersRowsPerPageReducer,
