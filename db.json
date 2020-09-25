@@ -8,29 +8,67 @@
       "city": "Bethesda",
       "birthDate": "2/23/1964",
       "email": "scully@fbi.gov",
-      "phone": "208-420-6969"
+      "phone": "208-420-8080"
     },
     {
       "id": 2,
-      "firstName": "sdfsdf",
-      "lastName": "sdfsdf",
-      "address": "wswdf",
-      "city": "sdfsdf",
-      "state": "dwfsdf",
-      "birthDate": "dsfsdf",
-      "email": "sdfsdf",
-      "phone": 2
+      "firstName": "Tom",
+      "lastName": "Brady",
+      "address": "1213 38th Place",
+      "city": "San Diego",
+      "birthDate": "2/23/1990",
+      "email": "tom@fbi.gov",
+      "phone": "208-420-8080"
     },
     {
       "id": 3,
-      "firstName": "asdasd",
-      "lastName": "assd",
-      "address": "asdasdfsdf",
-      "city": "asdsad",
-      "state": "asdasd",
-      "birthDate": "adasdasd",
-      "email": "adsa",
-      "phone": 1
+      "firstName": "God",
+      "lastName": "Zilla",
+      "address": "1 Ocean Way",
+      "city": "San Diego",
+      "birthDate": "2/20/1000",
+      "email": "zilla@dino.gods",
+      "phone": "303-609-1939"
+    },
+    {
+      "id": 4,
+      "firstName": "Peyton",
+      "lastName": "Manning",
+      "address": "290 Eagle Way",
+      "city": "Denver",
+      "birthDate": "1/1/1970",
+      "email": "theman@broncos.org",
+      "phone": "720-109-9308"
+    },
+    {
+      "id": 5,
+      "firstName": "Drake",
+      "lastName": "OVO",
+      "address": "90 Diamond Plaza",
+      "city": "Toronto",
+      "birthDate": "6/09/1986",
+      "email": "drake@ovo.com",
+      "phone": "802-291-2930"
+    },
+    {
+      "id": 6,
+      "firstName": "Tony",
+      "lastName": "Hawk",
+      "address": "190 Ocean Rd",
+      "city": "San Diego",
+      "birthDate": "1/23/1969",
+      "email": "tonyhawk@hawk.org",
+      "phone": "858-420-0101"
+    },
+    {
+      "id": 7,
+      "firstName": "Donald",
+      "lastName": "Trump",
+      "address": "1213 80th Place",
+      "city": "DC",
+      "birthDate": "2/21/1919",
+      "email": "trump@fbi.gov",
+      "phone": "201-410-2901"
     }
   ],
   "elections": [
@@ -59,11 +97,7 @@
           "no": 2
         }
       ],
-      "voterIds": [
-        1,
-        2,
-        3
-      ]
+      "voterIds": [1, 2, 3]
     },
     {
       "id": 2,
