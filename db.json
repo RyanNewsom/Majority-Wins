@@ -43,27 +43,24 @@
         {
           "id": 0,
           "content": "Flukeman is the most terrifying X-Files monster",
-          "yes": 4,
+          "yes": 1,
           "no": 0
         },
         {
           "id": 1,
           "content": "Eugene Victor Tooms is the most terrifying X-Files monster",
-          "yes": 2,
+          "yes": 1,
           "no": 2
         },
         {
           "id": 2,
           "content": "Mrs. Peacock is the most terrifying X-Files monster",
-          "yes": 2,
+          "yes": 1,
           "no": 2
         }
       ],
       "voterIds": [
-        0,
-        1,
-        2,
-        "sdfsdfsdfsdf"
+        1
       ]
     },
     {
@@ -75,25 +72,23 @@
         {
           "id": 0,
           "content": "Cigarette Smoking Man is an evil villain in X-Files",
-          "yes": 1,
+          "yes": 0,
           "no": 0
         },
         {
           "id": 1,
           "content": "Alex Krycek is an evil villain in X-Files",
-          "yes": 1,
+          "yes": 0,
           "no": 0
         },
         {
           "id": 2,
           "content": "Mr. X is an evil villain in X-Files",
-          "yes": 1,
+          "yes": 0,
           "no": 0
         }
       ],
-      "voterIds": [
-        0
-      ]
+      "voterIds": []
     },
     {
       "name": "asdsdf",

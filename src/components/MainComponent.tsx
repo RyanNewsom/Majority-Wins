@@ -12,16 +12,30 @@ export type MainComponentProps = {
   voters: Voter[];
   elections: Election[];
 
-  expandedElectionId: number;
   currentElection: Election;
   currentVoter: Voter;
-  onExpandElectionRow: (expandedElectionId: number) => void;
-  onCreateElection: (electionForm: ElectionForm) => void;
   onHandleDrodownChange: (electionForm: Election) => void;
   onCaptureElectionVotes: (election: Election ) => void;
   onValidateVoter: (voter: Voter) => void;
-  onAddVoter: (voter: Voter) => void;
   onHandleReturn: () => void;
+  expandedElectionId: number;
+  onExpandElectionRow: (expandedElectionId: number) => void;
+  onCreateElection: (electionForm: ElectionForm) => void;
+  registeredVotersTableSort: TableSorting;
+  registeredVotersTablePage: number;
+  registeredVotersRowsPerPage: number;
+  registeredVotersSelectedVoters: number[];
+  registeredVotersSelectedTab: number;
+  registeredVoterBeingEdited: Voter | null;
+  registerVotersTabSelected: (tabSelected: number) => void;
+  registeredVotersDeleteVoters: (voters: number[]) => void;
+  registeredVotersSortSelected: (sort: TableSorting) => void;
+  registeredVotersVotersSelected: (voters: number[]) => void;
+  registeredVotersTablePageUpdated: (page: number) => void;
+  registeredVotersRowsPerPageUpdated: (rows: number) => void;
+  registeredVotersRowEdited: (voter: Voter) => void;
+  onAddVoter: (voter: Voter) => void;
+  onSaveVoter: (voter: Voter) => void;
 };
 
 export function MainComponent(props: MainComponentProps) {

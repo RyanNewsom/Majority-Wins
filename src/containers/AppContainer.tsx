@@ -2,19 +2,12 @@ import React, { useEffect } from "react";
 import { bindActionCreators } from "redux";
 import { useSelector, useDispatch } from "react-redux";
 import { AppState, Election, Voter } from "../models/App";
-<<<<<<< HEAD
 import { MainComponent } from '../components/MainComponent';
 import * as AppActions from '../actions/AppActions';
 import * as ElectionActions from '../actions/ElectionActions';
 import * as CaptureVotesActions from '../actions/CaptureVotesActions';
-=======
-
-import { MainComponent } from "../components/MainComponent";
-import * as AppActions from "../actions/AppActions";
 import * as RegisterVotersActions from "../actions/RegisterVotersActions";
-import * as ElectionActions from "../actions/ElectionActions";
 import { TableSorting } from "../components/RegisteredVotersTableComponent";
->>>>>>> master
 
 export function AppContainer() {
   const voters = useSelector<AppState, Voter[]>((state) => state.voters);
@@ -63,6 +56,20 @@ export function AppContainer() {
       onAddCar: AppActions.addVoter,
       onAddVoter: AppActions.addVoter,
       onHandleReturn: CaptureVotesActions.handleReturn,
+      onSaveVoter: AppActions.saveVoter,
+      registerVotersTabSelected:
+        RegisterVotersActions.createRegisterVotersTabSelectedAction,
+      registeredVotersDeleteVoters: RegisterVotersActions.deleteVoters,
+      registeredVotersSortSelected:
+        RegisterVotersActions.createRegisterVotersSortSelectedAction,
+      registeredVotersVotersSelected:
+        RegisterVotersActions.createRegisterVotersSelectedAction,
+      registeredVotersTablePageUpdated:
+        RegisterVotersActions.createRegisterVotersTablePageSelectedAction,
+      registeredVotersRowsPerPageUpdated:
+        RegisterVotersActions.createRegisterVotersTableRowsSelectedAction,
+      registeredVotersRowEdited:
+        RegisterVotersActions.createRegisterVotersTableEditSelectedAction,
     },
     dispatch
   );
@@ -77,17 +84,14 @@ export function AppContainer() {
       voters={voters}
       elections={elections}
       expandedElectionId={expandedElectionId}
-<<<<<<< HEAD
       currentElection={currentElection}
       currentVoter={currentVoter}
-=======
       registeredVotersSelectedTab={registeredVotersSelectedTab || 0}
       registeredVotersTableSort={registeredVotersTableSort}
       registeredVotersTablePage={registeredVotersTablePage}
       registeredVotersRowsPerPage={registeredVotersRowsPerPage}
       registeredVotersSelectedVoters={registeredVotersSelectedVoters}
       registeredVoterBeingEdited={registeredVoterBeingEdited}
->>>>>>> master
       {...boundActionsMap}
     />
   );
