@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent} from "react";
+import React, { useState } from "react";
 import { Election, Voter, Question } from '../models/App';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
