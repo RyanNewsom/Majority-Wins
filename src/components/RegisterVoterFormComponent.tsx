@@ -122,7 +122,7 @@ export function RegisterVoterFormComponent(props: VoterFormProps) {
         value={voterForm.phone}
       />   
         <div className={classes.root}>
-        <Button variant="contained" color="secondary"  onClick={setupSubmitVoter(props, voterForm, resetVoterForm)}>
+        <Button variant="contained" color="primary"  onClick={setupSubmitVoter(props, voterForm, resetVoterForm)}>
           {props.buttonText}
         </Button> 
         </div>
