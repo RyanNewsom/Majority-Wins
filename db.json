@@ -1,17 +1,6 @@
 {
   "voters": [
     {
-      "id": 0,
-      "firstName": "Fox",
-      "lastName": "Mulder",
-      "address": "2630 Hegal Place, Apt. 42",
-      "city": "Alexandria",
-      "state": "Virginia",
-      "birthDate": "10/13/1961",
-      "email": "mulder@fbi.gov",
-      "phone": "208-867-5309"
-    },
-    {
       "id": 1,
       "firstName": "Dana",
       "lastName": "Scully",
@@ -23,15 +12,26 @@
       "phone": "208-420-6969"
     },
     {
-      "id": 2,
-      "firstName": "John",
-      "lastName": "Byers",
-      "address": "123 Nowhere St.",
-      "city": "Area 51",
-      "state": "Nevada",
-      "birthDate": "1/1/1970",
-      "email": "byers@lone-gunmen.org",
-      "phone": "151-420-6969"
+      "id": "sdfsdfsdfsdf",
+      "firstName": "sdfsdf",
+      "lastName": "sdfsdf",
+      "address": "wswdf",
+      "city": "sdfsdf",
+      "state": "dwfsdf",
+      "birthDate": "dsfsdf",
+      "email": "sdfsdf",
+      "phone": 2
+    },
+    {
+      "id": 3,
+      "firstName": "asdasd",
+      "lastName": "assd",
+      "address": "asdasdfsdf",
+      "city": "asdsad",
+      "state": "asdasd",
+      "birthDate": "adasdasd",
+      "email": "adsa",
+      "phone": 1
     }
   ],
   "elections": [
@@ -93,19 +93,19 @@
       "voterIds": []
     },
     {
-      "name": "Hello Election",
+      "name": "asdsdf",
       "year": 2020,
-      "description": "sdfnsdlfdsf",
+      "description": "sdfsdf",
       "questions": [
         {
           "id": 0,
-          "content": "aasdf",
+          "content": "sdfsdf",
           "yes": 0,
           "no": 0
         },
         {
           "id": 1,
-          "content": "sdf",
+          "content": "",
           "yes": 0,
           "no": 0
         }

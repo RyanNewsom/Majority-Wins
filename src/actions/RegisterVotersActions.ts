@@ -114,7 +114,7 @@ export type CreateRegisterVotersSelectedAction = (
 export const createRegisterVotersSelectedAction: CreateRegisterVotersSelectedAction = (
   voters: number[]
 ) => ({
-  type: REGISTER_VOTERS_SORT_SELECTED_ACTION,
+  type: REGISTER_VOTERS_SELECTED_ACTION,
   payload: {
     voters,
   },

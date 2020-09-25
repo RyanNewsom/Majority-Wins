@@ -3,6 +3,7 @@ import { Voter, AppState, Election } from "../models/App";
 import { AppActions } from "../actions/AppActions";
 import {
   isCreateRegisterVotersTabSelectedAction,
+  isDeleteVotersAction,
   isRegisterVotersSelectedAction,
   isRegisterVotersSortSelectedAction,
   isRegisterVotersTablePageSelectedAction,
@@ -110,6 +111,10 @@ export const registeredVotersSelectedReducer: Reducer<number[], AppActions> = (
 ) => {
   if (isRegisterVotersSelectedAction(action)) {
     return action.payload.voters;
+  }
+
+  if (isDeleteVotersAction(action)) {
+    return [];
   }
 
   return selectedVoters;
