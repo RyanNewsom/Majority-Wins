@@ -24,39 +24,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
 type Order = "asc" | "desc";
-
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string }
-) => number {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
-  const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
 
 interface HeadCell {
   disablePadding: boolean;
@@ -268,7 +236,7 @@ export type RegisteredVotersTableProps = {
 export function RegisteredVotersTableComponent(
   props: RegisteredVotersTableProps
 ) {
-  const voters = props.voters.concat();
+  const voters = sortedVoters(props.voters);
   const order = props.sort.order;
   const orderBy = props.sort.orderedBy;
   const selectedVoters = props.selectedVoters;
@@ -285,6 +253,26 @@ export function RegisteredVotersTableComponent(
       order: isAsc ? "desc" : "asc",
     });
   };
+
+  function sortedVoters(voters: Voter[]) {
+    const sortedDescending = props.sort.order === "desc";
+    const sortedArray = voters.sort((a: Voter, b: Voter) => {
+      let propertyA = a[props.sort.orderedBy as keyof Voter];
+      let propertyB = b[props.sort.orderedBy as keyof Voter];
+
+      if (typeof propertyA === "string") {
+        propertyA = propertyA.replace("/[^ws]/gi", "").toLowerCase();
+      }
+      if (typeof propertyB === "string") {
+        propertyB = propertyB.replace("/[^ws]/gi", "").toLowerCase();
+      }
+      var numIfTrue = sortedDescending ? 1 : -1;
+      var numIfFalse = sortedDescending ? -1 : 1;
+
+      return propertyA > propertyB ? numIfTrue : numIfFalse;
+    });
+    return sortedArray;
+  }
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
@@ -361,7 +349,7 @@ export function RegisteredVotersTableComponent(
               rowCount={voters.length}
             />
             <TableBody>
-              {stableSort(voters, getComparator(order, orderBy))
+              {voters
                 .slice(
                   props.tablePage * rowsPerPage,
                   props.tablePage * rowsPerPage + rowsPerPage

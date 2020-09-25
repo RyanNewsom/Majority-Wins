@@ -142,6 +142,12 @@ export const registeredVoterBeingEditedReducer: Reducer<
     return null;
   }
 
+  if (isCreateRegisterVotersTabSelectedAction(action)) {
+    if (action.payload.tabSelected === 1) {
+      return null;
+    }
+  }
+
   return userBeingEdited || null;
 };
 
