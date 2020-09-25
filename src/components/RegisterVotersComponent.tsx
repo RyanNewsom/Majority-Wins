@@ -1,17 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
+import { Container } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { RegisterVoterFormComponent } from "./RegisterVoterFormComponent";
+import { makeStyles } from "@material-ui/core/styles";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import PropTypes from "prop-types";
+import React from "react";
+import { Voter } from "../models/App";
 import {
   RegisteredVotersTableComponent,
   TableSorting,
 } from "./RegisteredVotersTableComponent";
-import { Voter } from "../models/App";
+import { RegisterVoterFormComponent } from "./RegisterVoterFormComponent";
 
 function TabPanel(props: any) {
   const { children, selectedTab, index, ...other } = props;
@@ -25,9 +25,9 @@ function TabPanel(props: any) {
       {...other}
     >
       {selectedTab === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
+        <Container>
+          <Box p={3}>{children}</Box>
+        </Container>
       )}
     </div>
   );
