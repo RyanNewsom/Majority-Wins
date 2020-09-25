@@ -1,17 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Election, ElectionForm, Voter } from "../models/App";
-
-import { bindActionCreators } from 'redux';
-import { VoterRegisterState } from "../models/VoterRegisterState";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { RegisterVotersComponent } from "./RegisterVotersComponent";
 import { CaptureVotesContainer } from "../containers/CaptureVotesContainer";
 import NavBar from "./NavBar";
-import { ElectionTableComponent } from "./ElectionTableComponent";
 import { CreateElectionComponent } from "./CreateElectionComponent";
-import { useSelector, useDispatch } from 'react-redux';
-import * as AppActions  from '../actions/AppActions';
-
+import { ElectionTableComponent } from "./ElectionTableComponent";
 
 export type MainComponentProps = {
   voters: Voter[];
@@ -19,21 +13,10 @@ export type MainComponentProps = {
   expandedElectionId: number;
   onExpandElectionRow: (expandedElectionId: number) => void;
   onCreateElection: (electionForm: ElectionForm) => void;
+  onAddVoter: (voter: Voter) => void;
 };
 
 export function MainComponent(props: MainComponentProps) {
-
-  const voters = useSelector<VoterRegisterState, Voter[]>(state => state.voters);
-  const dispatch = useDispatch();
-
-  const boundActions = bindActionCreators({
-    onAddVoter: AppActions.createAddVotersRequestAction,
-    
-  }, dispatch);
-
-  useEffect(() => {
-    dispatch(AppActions.addVoter);
-  }, [dispatch]);
   return (
     <Router>
       <>
@@ -42,13 +25,10 @@ export function MainComponent(props: MainComponentProps) {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/voters">
-          {/* ReactDOM.render(
-  <Provider store={carToolStore}>
-    <CarToolContainer />
-  </Provider>,
-  document.querySelector('#root'),
-); */}
-            <RegisterVotersComponent {...boundActions} voters={voters} />
+            <RegisterVotersComponent
+              voters={props.voters}
+              onAddVoter={props.onAddVoter}
+            />
           </Route>
           <Route path="/capturevotes">
             <CaptureVotesContainer />
