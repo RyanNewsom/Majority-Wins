@@ -1,13 +1,7 @@
 import React from "react";
-import AppBar from "@material-ui/core/FormControl";
-import Toolbar from "@material-ui/core/TextField";
 
 import { useForm } from "../hooks/useForm";
-import { Voter, VoterFormData } from "../models/App";
-import { makeStyles } from "@material-ui/core/styles";
-
-// export function RegisterVoterFormComponent() {
-//   return  <h1>Register Form</h1>;
+import { Voter } from "../models/App";
 
 export type VoterFormProps = {
   buttonText: string;
