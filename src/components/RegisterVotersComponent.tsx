@@ -90,7 +90,14 @@ export function RegisterVotersComponent(props: RegisterVotersProps) {
             onChange={handleChange}
             aria-label="simple tabs example"
           >
-            <Tab label="Register Voter" {...a11yProps(0)} />
+            <Tab
+              label={
+                props.registeredVoterBeingEdited
+                  ? "Update Voter"
+                  : "Register Voter"
+              }
+              {...a11yProps(0)}
+            />
             <Tab label="View Registered Voters" {...a11yProps(1)} />
           </Tabs>
         </AppBar>
