@@ -1,14 +1,17 @@
-import { Container } from '@material-ui/core';
-import AppBar from '@material-ui/core/AppBar';
-import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Voter } from '../models/App';
-import { RegisteredVotersTableComponent, TableSorting } from './RegisteredVotersTableComponent';
-import { RegisterVoterFormComponent } from './RegisterVoterFormComponent';
+import { Container } from "@material-ui/core";
+import AppBar from "@material-ui/core/AppBar";
+import Box from "@material-ui/core/Box";
+import { makeStyles } from "@material-ui/core/styles";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import PropTypes from "prop-types";
+import React from "react";
+import { Voter } from "../models/App";
+import {
+  RegisteredVotersTableComponent,
+  TableSorting,
+} from "./RegisteredVotersTableComponent";
+import { RegisterVoterFormComponent } from "./RegisterVoterFormComponent";
 
 function TabPanel(props: any) {
   const { children, selectedTab, index, ...other } = props;
@@ -39,11 +42,11 @@ TabPanel.propTypes = {
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
@@ -82,8 +85,19 @@ export function RegisterVotersComponent(props: RegisterVotersProps) {
     <>
       <div className={classes.root}>
         <AppBar position="static" elevation={0}>
-          <Tabs value={props.registeredVotersSelectedTab} onChange={handleChange} aria-label="simple tabs example">
-            <Tab label="Register Voter" {...a11yProps(0)} />
+          <Tabs
+            value={props.registeredVotersSelectedTab}
+            onChange={handleChange}
+            aria-label="simple tabs example"
+          >
+            <Tab
+              label={
+                props.registeredVoterBeingEdited
+                  ? "Update Voter"
+                  : "Register Voter"
+              }
+              {...a11yProps(0)}
+            />
             <Tab label="View Registered Voters" {...a11yProps(1)} />
           </Tabs>
         </AppBar>
