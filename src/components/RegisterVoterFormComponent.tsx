@@ -3,7 +3,7 @@ import AppBar from "@material-ui/core/FormControl";
 import Toolbar from "@material-ui/core/TextField";
 
 import { useForm } from '../hooks/useForm';
-import { Voter } from '../models/App';
+import { Voter, VoterFormData } from '../models/App';
 import { makeStyles } from "@material-ui/core/styles";
 
 // export function RegisterVoterFormComponent() {
@@ -17,7 +17,7 @@ export type VoterFormProps = {
 const setupSubmitVoter = (props: VoterFormProps, voterForm: any, resetVoterForm: () => void) => {
   return () => {
     props.onSubmitVoter({
-      ...voterForm,
+      ...voterForm
     });
   
     resetVoterForm();
@@ -28,12 +28,23 @@ const setupSubmitVoter = (props: VoterFormProps, voterForm: any, resetVoterForm:
 export function RegisterVoterFormComponent(props: VoterFormProps) {
 
   const [ voterForm, change, resetVoterForm ] = useForm({
-    firstName: '', lastName: '', address: '', city: '', state: '', birthDate: '', email: '', phone: '',
+    id: '',  firstName: '', lastName: '', address: '', city: '', state: '', birthDate: '', email: '', phone: '',
   });
 
   return (
     <form>
       <table> 
+      <tr>  
+          <td>
+          <label>
+            Voter Id
+           </label>
+           </td>
+           <td>
+            <input type="text" name="id"
+                  value={voterForm.id} onChange={change} />
+          </td> 
+        </tr>
         <tr>  
           <td>
           <label>

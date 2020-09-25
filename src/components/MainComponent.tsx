@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Election, ElectionForm, Voter } from "../models/App";
 
 import { bindActionCreators } from 'redux';
-import { Voter } from "../models/App";
 import { VoterRegisterState } from "../models/VoterRegisterState";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { RegisterVotersComponent } from "./RegisterVotersComponent";

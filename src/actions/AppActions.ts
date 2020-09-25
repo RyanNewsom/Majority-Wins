@@ -26,7 +26,7 @@ export const createRefreshVotersRequestAction: CreateRefreshVotersRequestAction 
   type: REFRESH_VOTERS_REQUEST_ACTION,
 });
 
-export const createAddVotersRequestAction: CreateAddVotersRequestAction = (voter: Voter) => ({
+export const createAddVotersRequestAction: CreateAddVotersRequestAction = (voter) => ({
   type: ADD_VOTERS_REQUEST_ACTION,
   payload: {
     voter,

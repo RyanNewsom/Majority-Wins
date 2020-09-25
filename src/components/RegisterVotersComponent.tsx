@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { RegisterVoterFormComponent } from "./RegisterVoterFormComponent";
 import { RegisteredVotersTableComponent } from "./RegisteredVotersTableComponent";
-import { Voter } from '../models/App';
+import { Voter, NewVoter } from '../models/App';
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
