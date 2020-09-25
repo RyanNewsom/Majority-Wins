@@ -141,7 +141,7 @@ export const registeredVoterBeingEditedReducer: Reducer<
   }
 
   if (isCreateRegisterVotersTabSelectedAction(action)) {
-    if (action.payload.tabSelected == 1) {
+    if (action.payload.tabSelected === 1) {
       return null;
     }
   }
