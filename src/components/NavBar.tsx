@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import logo from '../images/logo.png';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,8 +19,13 @@ const useStyles = makeStyles(theme => ({
     marginRight: 16,
   },
   navLink: {
+    display: 'flex',
     color: 'white',
     textDecoration: 'none',
+  },
+  navLogo: {
+    height: 45,
+    margin: 5,
   },
 }));
 
@@ -31,11 +37,15 @@ export default function Navbar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <div className={classes.title}>
             <Link className={classes.navLink} to="/">
-              Majority Wins™
+              <img src={logo} alt="logo" className={classes.navLogo}></img>
+              <div>
+                <Typography variant="h6">Majority Wins</Typography>
+                <Typography variant="subtitle2">It’s Time for a Change™</Typography>
+              </div>
             </Link>
-          </Typography>
+          </div>
           <Button
             className={classes.navButton}
             color="inherit"
