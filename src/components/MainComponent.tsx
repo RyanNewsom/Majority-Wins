@@ -1,8 +1,8 @@
+import { CaptureVotesComponent } from "./CaptureVotesComponent";
 import React from 'react';
 import { Election, ElectionForm, Voter } from '../models/App';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { RegisterVotersComponent } from './RegisterVotersComponent';
-import { CaptureVotesContainer } from '../containers/CaptureVotesContainer';
 import NavBar from './NavBar';
 import { CreateElectionComponent } from './CreateElectionComponent';
 import { TableSorting } from './RegisteredVotersTableComponent';
@@ -14,6 +14,12 @@ export type MainComponentProps = {
   voters: Voter[];
   elections: Election[];
 
+  currentElection: Election;
+  currentVoter: Voter;
+  onHandleDrodownChange: (electionForm: Election) => void;
+  onCaptureElectionVotes: (election: Election ) => void;
+  onValidateVoter: (voter: Voter) => void;
+  onHandleReturn: () => void;
   expandedElectionId: number;
   onExpandElectionRow: (expandedElectionId: number) => void;
   onCreateElection: (electionForm: ElectionForm) => void;
@@ -63,7 +69,16 @@ export function MainComponent(props: MainComponentProps) {
         </Route>
         <Route path="/capturevotes">
           <NavBar />
-          <CaptureVotesContainer />
+          <CaptureVotesComponent
+              currentElection={props.currentElection}
+              currentVoter={props.currentVoter}
+              onCaptureElectionVotes={props.onCaptureElectionVotes}
+              onHandleDrodownChange={props.onHandleDrodownChange}
+              onValidateVoter={props.onValidateVoter}
+              onHandleReturn={props.onHandleReturn}
+              elections={props.elections}
+              voters={props.voters}
+          />
         </Route>
         <Route path="/elections">
           <NavBar />
