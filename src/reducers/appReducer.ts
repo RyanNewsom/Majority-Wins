@@ -6,6 +6,7 @@ import {
   isDeleteVotersAction,
   isRegisterVotersSelectedAction,
   isRegisterVotersSortSelectedAction,
+  isRegisterVotersTableEditSelectedAction,
   isRegisterVotersTablePageSelectedAction,
   isRegisterVotersTableRowsSelectedAction,
 } from "../actions/RegisterVotersActions";
@@ -50,6 +51,14 @@ export const registeredVotersTabReducer: Reducer<
     return action.payload.tabSelected;
   }
 
+  if (isRegisterVotersTableEditSelectedAction(action)) {
+    return 0;
+  }
+
+  if (isRefreshVotersDoneAction(action)) {
+    return 1;
+  }
+
   return tabSelected;
 };
 
@@ -81,7 +90,7 @@ export const registeredVotersTableSortReducer: Reducer<
 
   return sorting;
 };
-// registeredVotersTablePage: number | undefined;
+
 export const registeredVotersTablePageReducer: Reducer<
   number | undefined,
   AppActions
@@ -92,7 +101,7 @@ export const registeredVotersTablePageReducer: Reducer<
 
   return sorting;
 };
-// registeredVotersRowsPerPage: number;
+
 export const registeredVotersRowsPerPageReducer: Reducer<number, AppActions> = (
   rowsPerPage = 5,
   action
@@ -104,7 +113,6 @@ export const registeredVotersRowsPerPageReducer: Reducer<number, AppActions> = (
   return rowsPerPage;
 };
 
-// registeredVotersSelectedVoters: number[];
 export const registeredVotersSelectedReducer: Reducer<number[], AppActions> = (
   selectedVoters = [],
   action
@@ -120,8 +128,22 @@ export const registeredVotersSelectedReducer: Reducer<number[], AppActions> = (
   return selectedVoters;
 };
 
+export const registeredVoterBeingEditedReducer: Reducer<
+  Voter | null,
+  AppActions
+> = (userBeingEdited, action) => {
+  if (isRegisterVotersTableEditSelectedAction(action)) {
+    return action.payload.voter;
+  }
+
+  if (isRefreshVotersDoneAction(action)) {
+    return null;
+  }
+
+  return userBeingEdited || null;
+};
+
 export const appReducer: Reducer<AppState, AppActions> = combineReducers({
-  // currentVoter: undefined,
   voters: voterReducer,
   elections: electionReducer,
   registeredVotersSelectedTab: registeredVotersTabReducer,
@@ -130,4 +152,5 @@ export const appReducer: Reducer<AppState, AppActions> = combineReducers({
   registeredVotersTablePage: registeredVotersTablePageReducer,
   registeredVotersRowsPerPage: registeredVotersRowsPerPageReducer,
   registeredVotersSelectedVoters: registeredVotersSelectedReducer,
+  registeredVoterBeingEdited: registeredVoterBeingEditedReducer,
 });

@@ -35,19 +35,16 @@ export function AppContainer() {
   const registeredVotersSelectedVoters = useSelector<AppState, number[]>(
     (state) => state.registeredVotersSelectedVoters
   );
+  const registeredVoterBeingEdited = useSelector<AppState, Voter | null>(
+    (state) => state.registeredVoterBeingEdited
+  );
 
   const boundActionsMap = bindActionCreators(
     {
       onExpandElectionRow: ElectionActions.createExpandElectionAction,
       onCreateElection: ElectionActions.appendElection,
-      onAddCar: AppActions.addVoter,
       onAddVoter: AppActions.addVoter,
-      //   onDelete: CarToolActions.deleteCar,
-      //   onSave: CarToolActions.updateCar,
-      //   addNewCar: CarToolActions.addNewCar,
-      //   onHeaderClicked: CarToolActions.createSortAction,
-      //   setCarBeingEdited: CarToolActions.createEditedAction,
-      //   cancel: CarToolActions.createCancelAction,
+      onSaveVoter: AppActions.saveVoter,
       registerVotersTabSelected:
         RegisterVotersActions.createRegisterVotersTabSelectedAction,
       registeredVotersDeleteVoters: RegisterVotersActions.deleteVoters,
@@ -59,6 +56,8 @@ export function AppContainer() {
         RegisterVotersActions.createRegisterVotersTablePageSelectedAction,
       registeredVotersRowsPerPageUpdated:
         RegisterVotersActions.createRegisterVotersTableRowsSelectedAction,
+      registeredVotersRowEdited:
+        RegisterVotersActions.createRegisterVotersTableEditSelectedAction,
     },
     dispatch
   );
@@ -78,6 +77,7 @@ export function AppContainer() {
       registeredVotersTablePage={registeredVotersTablePage}
       registeredVotersRowsPerPage={registeredVotersRowsPerPage}
       registeredVotersSelectedVoters={registeredVotersSelectedVoters}
+      registeredVoterBeingEdited={registeredVoterBeingEdited}
       {...boundActionsMap}
     />
   );

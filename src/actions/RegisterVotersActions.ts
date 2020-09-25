@@ -1,5 +1,6 @@
 import { Action, Dispatch } from "redux";
 import { TableSorting } from "../components/RegisteredVotersTableComponent";
+import { Voter } from "../models/App";
 import { refreshVoters } from "./AppActions";
 
 //Tab Selection
@@ -178,4 +179,30 @@ export function isRegisterVotersTableRowsSelectedAction(
   action: Action<string>
 ): action is RegisterVotersTableRowsSelectedAction {
   return [REGISTER_VOTERS_TABLE_ROWS_SELECTED_ACTION].includes(action.type);
+}
+
+export const REGISTER_VOTERS_EDIT_SELECTED_ACTION =
+  "REGISTER_VOTERS_EDIT_SELECTED";
+export interface RegisterVotersTableEditSelectedAction extends Action<string> {
+  payload: {
+    voter: Voter;
+  };
+}
+export type CreateRegisterVotersTableEditSelectedAction = (
+  voter: Voter
+) => RegisterVotersTableEditSelectedAction;
+
+export const createRegisterVotersTableEditSelectedAction: CreateRegisterVotersTableEditSelectedAction = (
+  voter: Voter
+) => ({
+  type: REGISTER_VOTERS_EDIT_SELECTED_ACTION,
+  payload: {
+    voter,
+  },
+});
+
+export function isRegisterVotersTableEditSelectedAction(
+  action: Action<string>
+): action is RegisterVotersTableEditSelectedAction {
+  return [REGISTER_VOTERS_EDIT_SELECTED_ACTION].includes(action.type);
 }

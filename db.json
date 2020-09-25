@@ -2,17 +2,16 @@
   "voters": [
     {
       "id": 1,
-      "firstName": "Dana",
-      "lastName": "Scully",
+      "firstName": "Danaa",
+      "lastName": "Scullys",
       "address": "1213 37th Place",
       "city": "Bethesda",
-      "state": "Maryland",
       "birthDate": "2/23/1964",
       "email": "scully@fbi.gov",
       "phone": "208-420-6969"
     },
     {
-      "id": "sdfsdfsdfsdf",
+      "id": 2,
       "firstName": "sdfsdf",
       "lastName": "sdfsdf",
       "address": "wswdf",
@@ -60,7 +59,10 @@
           "no": 2
         }
       ],
-      "voterIds": [0, 1]
+      "voterIds": [
+        0,
+        1
+      ]
     },
     {
       "id": 2,

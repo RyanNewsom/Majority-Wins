@@ -20,13 +20,16 @@ export type MainComponentProps = {
   registeredVotersRowsPerPage: number;
   registeredVotersSelectedVoters: number[];
   registeredVotersSelectedTab: number;
+  registeredVoterBeingEdited: Voter | null;
   registerVotersTabSelected: (tabSelected: number) => void;
   registeredVotersDeleteVoters: (voters: number[]) => void;
   registeredVotersSortSelected: (sort: TableSorting) => void;
   registeredVotersVotersSelected: (voters: number[]) => void;
   registeredVotersTablePageUpdated: (page: number) => void;
   registeredVotersRowsPerPageUpdated: (rows: number) => void;
+  registeredVotersRowEdited: (voter: Voter) => void;
   onAddVoter: (voter: Voter) => void;
+  onSaveVoter: (voter: Voter) => void;
 };
 
 export function MainComponent(props: MainComponentProps) {
@@ -57,7 +60,10 @@ export function MainComponent(props: MainComponentProps) {
               registeredVotersRowsPerPageUpdated={
                 props.registeredVotersRowsPerPageUpdated
               }
+              registeredVotersRowEdited={props.registeredVotersRowEdited}
               onAddVoter={props.onAddVoter}
+              onSaveVoter={props.onSaveVoter}
+              registeredVoterBeingEdited={props.registeredVoterBeingEdited}
             />
           </Route>
           <Route path="/capturevotes">

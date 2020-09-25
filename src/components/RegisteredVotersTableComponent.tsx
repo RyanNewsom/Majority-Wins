@@ -262,6 +262,7 @@ export type RegisteredVotersTableProps = {
   tablePageUpdated: (page: number) => void;
   rowsPerPage: number;
   rowsPerPageUpdated: (rows: number) => void;
+  editPressed: (voter: Voter) => void;
 };
 
 export function RegisteredVotersTableComponent(
@@ -316,6 +317,11 @@ export function RegisteredVotersTableComponent(
 
   const handleChangePage = (event: unknown, newPage: number) => {
     props.tablePageUpdated(newPage);
+  };
+
+  const handleEditPressed = (id: number) => {
+    const voter = voters.filter((item) => item.id === id)[0];
+    props.editPressed(voter);
   };
 
   const handleChangeRowsPerPage = (
@@ -395,7 +401,13 @@ export function RegisteredVotersTableComponent(
                       <TableCell align="left">{row.email}</TableCell>
                       <TableCell align="left">{row.phone}</TableCell>
                       <TableCell align="left">
-                        <Button>Edit</Button>
+                        <Button
+                          onClick={() => {
+                            handleEditPressed(row.id);
+                          }}
+                        >
+                          Edit
+                        </Button>
                       </TableCell>
                     </TableRow>
                   );

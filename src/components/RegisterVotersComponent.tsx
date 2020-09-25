@@ -56,17 +56,20 @@ const useStyles = makeStyles((theme) => ({
 export type RegisterVotersProps = {
   voters: Voter[];
   onAddVoter: (voter: Voter) => void;
+  onSaveVoter: (voterForm: Voter) => void;
   registeredVotersTableSort: TableSorting;
   registeredVotersTablePage: number;
   registeredVotersRowsPerPage: number;
   registeredVotersSelectedVoters: number[];
   registeredVotersSelectedTab: number;
+  registeredVoterBeingEdited: Voter | null;
   registeredVotersTabSelected: (tabSelected: number) => void;
   registeredVotersDeleteVoters: (voters: number[]) => void;
   registeredVotersSortSelected: (sort: TableSorting) => void;
   registeredVotersSelected: (voters: number[]) => void;
   registeredVotersTablePageUpdated: (page: number) => void;
   registeredVotersRowsPerPageUpdated: (rows: number) => void;
+  registeredVotersRowEdited: (voter: Voter) => void;
 };
 
 export function RegisterVotersComponent(props: RegisterVotersProps) {
@@ -95,6 +98,8 @@ export function RegisterVotersComponent(props: RegisterVotersProps) {
           <RegisterVoterFormComponent
             buttonText="Add Voter"
             onSubmitVoter={addVoter}
+            voterBeingEdited={props.registeredVoterBeingEdited}
+            onSaveVoter={props.onSaveVoter}
           />
         </TabPanel>
         <TabPanel selectedTab={props.registeredVotersSelectedTab} index={1}>
@@ -109,6 +114,7 @@ export function RegisterVotersComponent(props: RegisterVotersProps) {
             votersSelected={props.registeredVotersSelected}
             tablePageUpdated={props.registeredVotersTablePageUpdated}
             rowsPerPageUpdated={props.registeredVotersRowsPerPageUpdated}
+            editPressed={props.registeredVotersRowEdited}
           />
         </TabPanel>
       </div>

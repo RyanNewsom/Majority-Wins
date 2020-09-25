@@ -6,6 +6,8 @@ import { Voter } from "../models/App";
 export type VoterFormProps = {
   buttonText: string;
   onSubmitVoter: (voterForm: Voter) => void;
+  onSaveVoter: (voterForm: Voter) => void;
+  voterBeingEdited: Voter | null;
 };
 
 const setupSubmitVoter = (
@@ -14,9 +16,13 @@ const setupSubmitVoter = (
   resetVoterForm: () => void
 ) => {
   return () => {
-    props.onSubmitVoter({
-      ...voterForm,
-    });
+    if (props.voterBeingEdited) {
+      props.onSaveVoter({ ...voterForm });
+    } else {
+      props.onSubmitVoter({
+        ...voterForm,
+      });
+    }
 
     resetVoterForm();
   };
@@ -24,15 +30,14 @@ const setupSubmitVoter = (
 
 export function RegisterVoterFormComponent(props: VoterFormProps) {
   const [voterForm, change, resetVoterForm] = useForm({
-    id: "",
-    firstName: "",
-    lastName: "",
-    address: "",
-    city: "",
-    state: "",
-    birthDate: "",
-    email: "",
-    phone: "",
+    id: props?.voterBeingEdited?.id || "",
+    firstName: props?.voterBeingEdited?.firstName || "",
+    lastName: props?.voterBeingEdited?.lastName || "",
+    address: props?.voterBeingEdited?.address || "",
+    city: props?.voterBeingEdited?.city || "",
+    birthDate: props?.voterBeingEdited?.birthDate || "",
+    email: props?.voterBeingEdited?.email || "",
+    phone: props?.voterBeingEdited?.phone || "",
   });
 
   return (
@@ -96,21 +101,6 @@ export function RegisterVoterFormComponent(props: VoterFormProps) {
         <tr>
           <td>
             {" "}
-            <label>State</label>
-          </td>
-          <td>
-            {" "}
-            <input
-              type="text"
-              name="state"
-              value={voterForm.state}
-              onChange={change}
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {" "}
             <label>Birthdate</label>
           </td>
           <td>
@@ -158,7 +148,7 @@ export function RegisterVoterFormComponent(props: VoterFormProps) {
             type="button"
             onClick={setupSubmitVoter(props, voterForm, resetVoterForm)}
           >
-            {props.buttonText}
+            {props.voterBeingEdited ? "Save" : props.buttonText}
           </button>
         </tr>
       </table>

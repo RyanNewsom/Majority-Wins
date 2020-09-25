@@ -11,6 +11,7 @@ export type AppState = {
   registeredVotersTablePage: number | undefined;
   registeredVotersRowsPerPage: number;
   registeredVotersSelectedVoters: number[];
+  registeredVoterBeingEdited: Voter | null;
 };
 
 export type Voter = {
@@ -45,7 +46,6 @@ export type Question = {
   no: number;
 };
 
-
 export type VoterFormData = {
   firstName: string;
   lastName: string;
@@ -57,5 +57,4 @@ export type VoterFormData = {
   phone: string;
 };
 
-
-export type NewVoter = Omit<Voter, 'id'>;
+export type NewVoter = Omit<Voter, "id">;
