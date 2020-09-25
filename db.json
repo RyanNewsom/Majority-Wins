@@ -32,6 +32,28 @@
       "birthDate": "1/1/1970",
       "email": "byers@lone-gunmen.org",
       "phone": "151-420-6969"
+    },
+    {
+      "id": "sdfsdfsdfsdf",
+      "firstName": "sdfsdf",
+      "lastName": "sdfsdf",
+      "address": "wswdf",
+      "city": "sdfsdf",
+      "state": "dwfsdf",
+      "birthDate": "dsfsdf",
+      "email": "sdfsdf",
+      "phone": 2
+    },
+    {
+      "id": 3,
+      "firstName": "asdasd",
+      "lastName": "assd",
+      "address": "asdasdfsdf",
+      "city": "asdsad",
+      "state": "asdasd",
+      "birthDate": "adasdasd",
+      "email": "adsa",
+      "phone": 1
     }
   ],
   "elections": [
@@ -91,6 +113,27 @@
         }
       ],
       "voterIds": []
+    },
+    {
+      "name": "asdsdf",
+      "year": 2020,
+      "description": "sdfsdf",
+      "questions": [
+        {
+          "id": 0,
+          "content": "sdfsdf",
+          "yes": 0,
+          "no": 0
+        },
+        {
+          "id": 1,
+          "content": "",
+          "yes": 0,
+          "no": 0
+        }
+      ],
+      "voterIds": [],
+      "id": 3
     }
   ]
 }

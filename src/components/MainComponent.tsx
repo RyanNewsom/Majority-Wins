@@ -1,11 +1,11 @@
-import React from 'react';
-import { Election, ElectionForm, Voter } from '../models/App';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { RegisterVotersContainer } from '../containers/RegisterVotersContainer';
-import { CaptureVotesContainer } from '../containers/CaptureVotesContainer';
-import NavBar from './NavBar';
-import { ElectionTableComponent } from './ElectionTableComponent';
-import { CreateElectionComponent } from './CreateElectionComponent';
+import React from "react";
+import { Election, ElectionForm, Voter } from "../models/App";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { RegisterVotersComponent } from "./RegisterVotersComponent";
+import { CaptureVotesContainer } from "../containers/CaptureVotesContainer";
+import NavBar from "./NavBar";
+import { CreateElectionComponent } from "./CreateElectionComponent";
+import { ElectionTableComponent } from "./ElectionTableComponent";
 
 export type MainComponentProps = {
   voters: Voter[];
@@ -13,6 +13,7 @@ export type MainComponentProps = {
   expandedElectionId: number;
   onExpandElectionRow: (expandedElectionId: number) => void;
   onCreateElection: (electionForm: ElectionForm) => void;
+  onAddVoter: (voter: Voter) => void;
 };
 
 export function MainComponent(props: MainComponentProps) {
@@ -24,7 +25,10 @@ export function MainComponent(props: MainComponentProps) {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/voters">
-            <RegisterVotersContainer />
+            <RegisterVotersComponent
+              voters={props.voters}
+              onAddVoter={props.onAddVoter}
+            />
           </Route>
           <Route path="/capturevotes">
             <CaptureVotesContainer />
@@ -35,7 +39,9 @@ export function MainComponent(props: MainComponentProps) {
               expandedElectionId={props.expandedElectionId}
               onExpandElectionRow={props.onExpandElectionRow}
             />
-            <CreateElectionComponent onCreateElection={props.onCreateElection} />
+            <CreateElectionComponent
+              onCreateElection={props.onCreateElection}
+            />
           </Route>
         </Switch>
       </>
