@@ -13,6 +13,7 @@ export type MainComponentProps = {
   expandedElectionId: number;
   onExpandElectionRow: (expandedElectionId: number) => void;
   onCreateElection: (electionForm: ElectionForm) => void;
+  onCaptureElectionVotes: (election: Election ) => void;
 };
 
 export function MainComponent(props: MainComponentProps) {
@@ -27,7 +28,11 @@ export function MainComponent(props: MainComponentProps) {
             <RegisterVotersContainer />
           </Route>
           <Route path="/capturevotes">
-            <CaptureVotesContainer elections={props.elections} voters={props.voters}/>
+            <CaptureVotesContainer
+              onCaptureElectionVotes={props.onCaptureElectionVotes}
+              elections={props.elections}
+              voters={props.voters}
+            />
           </Route>
           <Route path="/elections">
             <ElectionTableComponent

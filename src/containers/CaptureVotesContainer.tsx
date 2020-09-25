@@ -9,7 +9,8 @@ import { CaptureVotesComponent }from '../components/CaptureVotesComponent';
 
 export type CaptureVotesContainerProps = {
   voters: Voter[],
-  elections: Election[]
+  elections: Election[],
+  onCaptureElectionVotes: (election: Election ) => void,
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,10 +26,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export function CaptureVotesContainer(props:CaptureVotesContainerProps ) {
+
+  console.log('elections', props.elections);
   const classes = useStyles();
-  // const [ election, setElection ] = useState('');
-  const [ votingClicked, setvotingClicked ] = useState(false);
   const [ inputEmail, setInputEmail ] = useState('');
+  const [ votingClicked, setvotingClicked ] = useState(false);
   const [ currentVoter, setCurrentVoter ] = useState({} as Voter);
   const [ currentElection, setCurrentElection ] = useState({} as Election);
 
@@ -36,23 +38,28 @@ export function CaptureVotesContainer(props:CaptureVotesContainerProps ) {
     setCurrentElection(props.elections.filter(election => election.name === event.target.value)[0]);
   }
 
-  const beginVoting = () => {
-    setvotingClicked(true);
-  }
-
-  const isValidVoter = !(Object.keys(currentVoter) && Object.keys(currentVoter).length === 0);
-
-  const validateUser = (inputEmail: string) => {
-    const voter = props.voters.filter(voter => voter.email === inputEmail)[0];
-    setCurrentVoter(voter);
-  }
+  const isValidVoter = currentVoter && !(Object.keys(currentVoter).length === 0);
+  const isCurrentElection = currentElection && !(Object.keys(currentElection).length === 0);
+  let invalidVoterErrorMessage = 'Invalid Voter';
 
   type HTMLFormControls =
   HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
   const change = (e: ChangeEvent<HTMLFormControls>) => {
     setInputEmail(e.target.value);
+    validateVoter(e.target.value);
   };
+
+  const beginVoting = () => {
+    setvotingClicked(true);
+  }
+
+  const validateVoter = (inputEmail: string) => {
+    const voters = props.voters.filter(voter => voter.email === inputEmail);
+    if(voters.length > 0) {
+      setCurrentVoter(voters[0])
+    }
+  }
 
   return (
     <>
@@ -61,14 +68,15 @@ export function CaptureVotesContainer(props:CaptureVotesContainerProps ) {
       <Select
           labelId="election-list-select-label"
           id="select-election"
-          value={currentElection.name}
+          value={isCurrentElection ? currentElection.name : ""}
           onChange={handleDrodownChange}
           className={classes.selectEmpty}
         >
         <MenuItem value=""><em>None</em></MenuItem>
-        {props.elections.map(election => <MenuItem value={election.name}>{election.name}</MenuItem>)}
+        {props.elections.map(election => <MenuItem key={election.id} value={election.name}>{election.name}</MenuItem>)}
       </Select>
-      {currentElection &&
+
+      {isCurrentElection &&
         <p>
           <p>You have selected: {currentElection.name}</p>
           <Button variant="contained" color="primary" onClick={() => beginVoting()}>Begin Voting</Button>
@@ -79,10 +87,20 @@ export function CaptureVotesContainer(props:CaptureVotesContainerProps ) {
         <>
           <label>Enter Email Address: </label>
           <TextField id="email-input" label="email address" onChange={change}/>
-          <Button variant="contained" color="primary" onClick={() => validateUser(inputEmail)}>Validate User</Button>
+          <Button variant="contained" color="primary" onClick={() => validateVoter(inputEmail)}>Validate User</Button>
         </>
       }
-      {isValidVoter && <CaptureVotesComponent elections={props.elections} currentElection={currentElection} currentVoter={currentVoter}/> }
+      {
+        inputEmail && !isValidVoter && <p>{invalidVoterErrorMessage}</p>
+      }
+      {/* { isValidVoter &&
+        <CaptureVotesComponent
+          onCaptureElectionVotes={props.onCaptureElectionVotes}
+          elections={props.elections}
+          currentElection={currentElection}
+          currentVoter={currentVoter}
+        />
+      } */}
     </>
   )
 }

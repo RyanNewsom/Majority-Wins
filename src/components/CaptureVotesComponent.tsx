@@ -11,7 +11,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 export type CaptureVotesComponentProps = {
   currentVoter: Voter,
   currentElection: Election,
-  elections: Election[]
+  elections: Election[],
+  onCaptureElectionVotes: (election: Election ) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,11 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export function CaptureVotesComponent(props:CaptureVotesComponentProps ) {
-  console.log(props.elections);
   const classes = useStyles();
-  const [checked, setChecked] = useState([{} as Question]);
+  const [checked, setChecked] = useState([] as Question[]);
 
-  const handleQuestionToggle = (question: Question) => () => {
+  const handleQuestionCheckToggle = (question: Question) => () => {
     const currentIndex = checked.indexOf(question);
     const newChecked = [...checked];
 
@@ -40,7 +40,16 @@ export function CaptureVotesComponent(props:CaptureVotesComponentProps ) {
     }
 
     setChecked(newChecked);
+  };
+
+  const castVote = () => {
+    checked.map(item => item.yes = item.yes + 1);
+    // console.log(checked);
+    // console.log(props.currentVoter.id, props.currentElection.id);
+    // console.log(props.currentElection);
+    // props.onCaptureElectionVotes(props.currentElection);
   }
+
 
   return (
     <>
@@ -48,23 +57,24 @@ export function CaptureVotesComponent(props:CaptureVotesComponentProps ) {
       <p>Lets Capture Votes !</p>
 
       <List dense className={classes.root}>
-      {props.currentElection.questions.map((question, index ) => {
-        const labelId = `checkbox-list-secondary-label-${index}`;
-        return (
-          <ListItem key={index} button>
-            <ListItemText id={labelId} primary={`${index + 1}.  ${question.content}`} />
-            <ListItemSecondaryAction>
+        {props.currentElection.questions.concat().map((question, index ) => {
+          const labelId = `checkbox-list-secondary-label-${index}`;
+          return (
+            <ListItem key={index} button>
+              <ListItemText id={labelId} primary={`${index + 1}.  ${question.content}`} />
+              <ListItemSecondaryAction>
               <Checkbox
                 edge="end"
-                onChange={handleQuestionToggle(question)}
-                checked={question.yes === 1}
+                onChange={handleQuestionCheckToggle(question)}
+                checked={checked.indexOf(question) !== -1}
                 inputProps={{ 'aria-labelledby': labelId }}
               />
-            </ListItemSecondaryAction>
-          </ListItem>
-        );
-      })}
-    </List>
+              </ListItemSecondaryAction>
+            </ListItem>
+          );
+        })}
+      </List>
+      <Button variant="contained" color="primary" onClick={() => castVote()}>Cast Vote</Button>
     </>
   )
 }
