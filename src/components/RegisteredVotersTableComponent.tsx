@@ -268,7 +268,7 @@ export type RegisteredVotersTableProps = {
 export function RegisteredVotersTableComponent(
   props: RegisteredVotersTableProps
 ) {
-  const voters = props.voters.concat();
+  const voters = sortedVoters(props.voters);
   const order = props.sort.order;
   const orderBy = props.sort.orderedBy;
   const selectedVoters = props.selectedVoters;
@@ -285,6 +285,26 @@ export function RegisteredVotersTableComponent(
       order: isAsc ? "desc" : "asc",
     });
   };
+
+  function sortedVoters(voters: Voter[]) {
+    const sortedDescending = props.sort.order === "desc";
+    const sortedArray = voters.sort((a: Voter, b: Voter) => {
+      let propertyA = a[props.sort.orderedBy as keyof Voter];
+      let propertyB = b[props.sort.orderedBy as keyof Voter];
+
+      if (typeof propertyA === "string") {
+        propertyA = propertyA.replace("/[^ws]/gi", "").toLowerCase();
+      }
+      if (typeof propertyB === "string") {
+        propertyB = propertyB.replace("/[^ws]/gi", "").toLowerCase();
+      }
+      var numIfTrue = sortedDescending ? 1 : -1;
+      var numIfFalse = sortedDescending ? -1 : 1;
+
+      return propertyA > propertyB ? numIfTrue : numIfFalse;
+    });
+    return sortedArray;
+  }
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
@@ -361,57 +381,60 @@ export function RegisteredVotersTableComponent(
               rowCount={voters.length}
             />
             <TableBody>
-              {stableSort(voters, getComparator(order, orderBy))
-                .slice(
-                  props.tablePage * rowsPerPage,
-                  props.tablePage * rowsPerPage + rowsPerPage
-                )
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+              {
+                //stableSort(voters, getComparator(order, orderBy))
+                voters
+                  .slice(
+                    props.tablePage * rowsPerPage,
+                    props.tablePage * rowsPerPage + rowsPerPage
+                  )
+                  .map((row, index) => {
+                    const isItemSelected = isSelected(row.id);
+                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.id}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          onClick={(event) => handleClick(event, row.id)}
-                          inputProps={{ "aria-labelledby": labelId }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={row.id}
+                        selected={isItemSelected}
                       >
-                        {row.firstName}
-                      </TableCell>
-                      <TableCell align="left">{row.lastName}</TableCell>
-                      <TableCell align="left">{row.address}</TableCell>
-                      <TableCell align="left">{row.city}</TableCell>
-                      <TableCell align="left">{row.birthDate}</TableCell>
-                      <TableCell align="left">{row.email}</TableCell>
-                      <TableCell align="left">{row.phone}</TableCell>
-                      <TableCell align="left">
-                        <Button
-                          onClick={() => {
-                            handleEditPressed(row.id);
-                          }}
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            checked={isItemSelected}
+                            onClick={(event) => handleClick(event, row.id)}
+                            inputProps={{ "aria-labelledby": labelId }}
+                          />
+                        </TableCell>
+                        <TableCell
+                          component="th"
+                          id={labelId}
+                          scope="row"
+                          padding="none"
                         >
-                          Edit
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                          {row.firstName}
+                        </TableCell>
+                        <TableCell align="left">{row.lastName}</TableCell>
+                        <TableCell align="left">{row.address}</TableCell>
+                        <TableCell align="left">{row.city}</TableCell>
+                        <TableCell align="left">{row.birthDate}</TableCell>
+                        <TableCell align="left">{row.email}</TableCell>
+                        <TableCell align="left">{row.phone}</TableCell>
+                        <TableCell align="left">
+                          <Button
+                            onClick={() => {
+                              handleEditPressed(row.id);
+                            }}
+                          >
+                            Edit
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+              }
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>
                   <TableCell colSpan={6} />
