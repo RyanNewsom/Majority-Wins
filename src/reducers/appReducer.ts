@@ -1,13 +1,20 @@
 import { Reducer, combineReducers } from "redux";
 import { Voter, AppState, Election } from "../models/App";
 import { AppActions } from "../actions/AppActions";
-import { isCreateRegisterVotersTabSelectedAction } from "../actions/RegisterVotersActions";
+import {
+  isCreateRegisterVotersTabSelectedAction,
+  isRegisterVotersSelectedAction,
+  isRegisterVotersSortSelectedAction,
+  isRegisterVotersTablePageSelectedAction,
+  isRegisterVotersTableRowsSelectedAction,
+} from "../actions/RegisterVotersActions";
 import { isRefreshVotersDoneAction } from "../actions/AppActions";
 import {
   isAppendElectionAction,
   isExpandElectionAction,
   isRefreshElectionsDoneAction,
 } from "../actions/ElectionActions";
+import { TableSorting } from "../components/RegisteredVotersTableComponent";
 
 export const voterReducer: Reducer<Voter[], AppActions> = (
   voters = [],
@@ -63,10 +70,59 @@ export const expandedElectionIdReducer: Reducer<number, AppActions> = (
   return expandedElectionId;
 };
 
+export const registeredVotersTableSortReducer: Reducer<
+  TableSorting | undefined,
+  AppActions
+> = (sorting = { order: "desc", orderedBy: "id" }, action) => {
+  if (isRegisterVotersSortSelectedAction(action)) {
+    return action.payload.sort;
+  }
+
+  return sorting;
+};
+// registeredVotersTablePage: number | undefined;
+export const registeredVotersTablePageReducer: Reducer<
+  number | undefined,
+  AppActions
+> = (sorting = 0, action) => {
+  if (isRegisterVotersTablePageSelectedAction(action)) {
+    return action.payload.page;
+  }
+
+  return sorting;
+};
+// registeredVotersRowsPerPage: number;
+export const registeredVotersRowsPerPageReducer: Reducer<number, AppActions> = (
+  rowsPerPage = 5,
+  action
+) => {
+  if (isRegisterVotersTableRowsSelectedAction(action)) {
+    return action.payload.rows;
+  }
+
+  return rowsPerPage;
+};
+
+// registeredVotersSelectedVoters: number[];
+export const registeredVotersSelectedReducer: Reducer<number[], AppActions> = (
+  selectedVoters = [],
+  action
+) => {
+  if (isRegisterVotersSelectedAction(action)) {
+    return action.payload.voters;
+  }
+
+  return selectedVoters;
+};
+
 export const appReducer: Reducer<AppState, AppActions> = combineReducers({
   // currentVoter: undefined,
   voters: voterReducer,
   elections: electionReducer,
   registeredVotersSelectedTab: registeredVotersTabReducer,
   expandedElectionId: expandedElectionIdReducer,
+  registeredVotersTableSort: registeredVotersTableSortReducer,
+  registeredVotersTablePage: registeredVotersTablePageReducer,
+  registeredVotersRowsPerPage: registeredVotersRowsPerPageReducer,
+  registeredVotersSelectedVoters: registeredVotersSelectedReducer,
 });

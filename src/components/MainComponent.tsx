@@ -6,16 +6,26 @@ import { CaptureVotesContainer } from "../containers/CaptureVotesContainer";
 import NavBar from "./NavBar";
 import { ElectionTableComponent } from "./ElectionTableComponent";
 import { CreateElectionComponent } from "./CreateElectionComponent";
+import { TableSorting } from "./RegisteredVotersTableComponent";
 
 export type MainComponentProps = {
   voters: Voter[];
   elections: Election[];
-  onRegisterVotersTabSelected: (tabSelected: number) => void;
-  registeredVotersSelectedTab: number;
-  deleteVoters: (voters: number[]) => void;
+
   expandedElectionId: number;
   onExpandElectionRow: (expandedElectionId: number) => void;
   onCreateElection: (electionForm: ElectionForm) => void;
+  registeredVotersTableSort: TableSorting;
+  registeredVotersTablePage: number;
+  registeredVotersRowsPerPage: number;
+  registeredVotersSelectedVoters: number[];
+  registeredVotersSelectedTab: number;
+  registerVotersTabSelected: (tabSelected: number) => void;
+  registeredVotersDeleteVoters: (voters: number[]) => void;
+  registeredVotersSortSelected: (sort: TableSorting) => void;
+  registeredVotersVotersSelected: (voters: number[]) => void;
+  registeredVotersTablePageUpdated: (page: number) => void;
+  registeredVotersRowsPerPageUpdated: (rows: number) => void;
 };
 
 export function MainComponent(props: MainComponentProps) {
@@ -29,9 +39,23 @@ export function MainComponent(props: MainComponentProps) {
           <Route path="/voters">
             <RegisterVotersComponent
               voters={props.voters}
-              onTabSelected={props.onRegisterVotersTabSelected}
-              selectedTab={props.registeredVotersSelectedTab}
-              deleteVoters={props.deleteVoters}
+              registeredVotersRowsPerPage={props.registeredVotersRowsPerPage}
+              registeredVotersSelectedVoters={
+                props.registeredVotersSelectedVoters
+              }
+              registeredVotersTablePage={props.registeredVotersTablePage}
+              registeredVotersTableSort={props.registeredVotersTableSort}
+              registeredVotersTabSelected={props.registerVotersTabSelected}
+              registeredVotersSelectedTab={props.registeredVotersSelectedTab}
+              registeredVotersDeleteVoters={props.registeredVotersDeleteVoters}
+              registeredVotersSortSelected={props.registeredVotersSortSelected}
+              registeredVotersSelected={props.registeredVotersVotersSelected}
+              registeredVotersTablePageUpdated={
+                props.registeredVotersTablePageUpdated
+              }
+              registeredVotersRowsPerPageUpdated={
+                props.registeredVotersRowsPerPageUpdated
+              }
             />
           </Route>
           <Route path="/capturevotes">

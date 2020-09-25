@@ -7,7 +7,10 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { RegisterVoterFormComponent } from "./RegisterVoterFormComponent";
-import { RegisteredVotersTableComponent } from "./RegisteredVotersTableComponent";
+import {
+  RegisteredVotersTableComponent,
+  TableSorting,
+} from "./RegisteredVotersTableComponent";
 import { Voter } from "../models/App";
 
 function TabPanel(props: any) {
@@ -52,23 +55,31 @@ const useStyles = makeStyles((theme) => ({
 
 export type RegisterVotersProps = {
   voters: Voter[];
-  selectedTab: number;
-  onTabSelected: (index: number) => void;
-  deleteVoters: (voters: number[]) => void;
+  registeredVotersTableSort: TableSorting;
+  registeredVotersTablePage: number;
+  registeredVotersRowsPerPage: number;
+  registeredVotersSelectedVoters: number[];
+  registeredVotersSelectedTab: number;
+  registeredVotersTabSelected: (tabSelected: number) => void;
+  registeredVotersDeleteVoters: (voters: number[]) => void;
+  registeredVotersSortSelected: (sort: TableSorting) => void;
+  registeredVotersSelected: (voters: number[]) => void;
+  registeredVotersTablePageUpdated: (page: number) => void;
+  registeredVotersRowsPerPageUpdated: (rows: number) => void;
 };
 
 export function RegisterVotersComponent(props: RegisterVotersProps) {
   const classes = useStyles();
 
   const handleChange = (event: any, newValue: number) => {
-    props.onTabSelected(newValue);
+    props.registeredVotersTabSelected(newValue);
   };
 
   return (
     <div className={classes.root}>
       <AppBar position="static" elevation={0}>
         <Tabs
-          value={props.selectedTab}
+          value={props.registeredVotersSelectedTab}
           onChange={handleChange}
           aria-label="simple tabs example"
         >
@@ -76,13 +87,21 @@ export function RegisterVotersComponent(props: RegisterVotersProps) {
           <Tab label="View Registered Voters" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <TabPanel selectedTab={props.selectedTab} index={0}>
+      <TabPanel selectedTab={props.registeredVotersSelectedTab} index={0}>
         <RegisterVoterFormComponent />
       </TabPanel>
-      <TabPanel selectedTab={props.selectedTab} index={1}>
+      <TabPanel selectedTab={props.registeredVotersSelectedTab} index={1}>
         <RegisteredVotersTableComponent
           voters={props.voters}
-          deleteVoters={props.deleteVoters}
+          sort={props.registeredVotersTableSort}
+          selectedVoters={props.registeredVotersSelectedVoters}
+          tablePage={props.registeredVotersTablePage}
+          rowsPerPage={props.registeredVotersRowsPerPage}
+          deleteVoters={props.registeredVotersDeleteVoters}
+          sortSelected={props.registeredVotersSortSelected}
+          votersSelected={props.registeredVotersSelected}
+          tablePageUpdated={props.registeredVotersTablePageUpdated}
+          rowsPerPageUpdated={props.registeredVotersRowsPerPageUpdated}
         />
       </TabPanel>
     </div>

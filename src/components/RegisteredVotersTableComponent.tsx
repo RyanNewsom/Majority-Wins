@@ -24,11 +24,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-export type RegisteredVotersTableProps = {
-  voters: Voter[];
-  deleteVoters: (voters: number[]) => void;
-};
-
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -251,77 +246,97 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+export type TableSorting = {
+  order: Order;
+  orderedBy: keyof Voter;
+};
+
+export type RegisteredVotersTableProps = {
+  voters: Voter[];
+  deleteVoters: (voters: number[]) => void;
+  sort: TableSorting;
+  sortSelected: (sort: TableSorting) => void;
+  selectedVoters: number[];
+  votersSelected: (voters: number[]) => void;
+  tablePage: number;
+  tablePageUpdated: (page: number) => void;
+  rowsPerPage: number;
+  rowsPerPageUpdated: (rows: number) => void;
+};
+
 export function RegisteredVotersTableComponent(
   props: RegisteredVotersTableProps
 ) {
   const voters = props.voters.concat();
+  const order = props.sort.order;
+  const orderBy = props.sort.orderedBy;
+  const selectedVoters = props.selectedVoters;
+  const rowsPerPage = props.rowsPerPage;
   const classes = useStyles();
-  const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Voter>("id");
-  const [selected, setSelected] = React.useState<number[]>([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: keyof Voter
   ) => {
     const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
+    props.sortSelected({
+      orderedBy: property,
+      order: isAsc ? "desc" : "asc",
+    });
   };
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       const newSelecteds = voters.map((n) => n.id);
-      setSelected(newSelecteds);
+      props.votersSelected(newSelecteds);
       return;
     }
-    setSelected([]);
+    props.votersSelected([]);
   };
 
   const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
-    const selectedIndex = selected.indexOf(id);
+    const selectedIndex = selectedVoters.indexOf(id);
     let newSelected: number[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selectedVoters, id);
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
+      newSelected = newSelected.concat(selectedVoters.slice(1));
+    } else if (selectedIndex === selectedVoters.length - 1) {
+      newSelected = newSelected.concat(selectedVoters.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
+        selectedVoters.slice(0, selectedIndex),
+        selectedVoters.slice(selectedIndex + 1)
       );
     }
 
-    setSelected(newSelected);
+    props.votersSelected(newSelected);
   };
 
   const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
+    props.tablePageUpdated(newPage);
   };
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    props.rowsPerPageUpdated(parseInt(event.target.value, 10));
+    props.tablePageUpdated(0);
   };
 
-  const isSelected = (id: number) => selected.indexOf(id) !== -1;
+  const isSelected = (id: number) => selectedVoters.indexOf(id) !== -1;
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, voters.length - page * rowsPerPage);
+    rowsPerPage -
+    Math.min(rowsPerPage, voters.length - props.tablePage * rowsPerPage);
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar
-          numSelected={selected.length}
-          deleteClicked={() => props.deleteVoters(selected)}
+          numSelected={selectedVoters.length}
+          deleteClicked={() => props.deleteVoters(selectedVoters)}
         />
         <TableContainer>
           <Table
@@ -332,7 +347,7 @@ export function RegisteredVotersTableComponent(
           >
             <EnhancedTableHead
               classes={classes}
-              numSelected={selected.length}
+              numSelected={selectedVoters.length}
               order={order}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
@@ -341,7 +356,10 @@ export function RegisteredVotersTableComponent(
             />
             <TableBody>
               {stableSort(voters, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .slice(
+                  props.tablePage * rowsPerPage,
+                  props.tablePage * rowsPerPage + rowsPerPage
+                )
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
@@ -395,7 +413,7 @@ export function RegisteredVotersTableComponent(
           component="div"
           count={voters.length}
           rowsPerPage={rowsPerPage}
-          page={page}
+          page={props.tablePage}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
