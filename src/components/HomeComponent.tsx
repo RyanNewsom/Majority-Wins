@@ -1,4 +1,4 @@
-import { Button, createStyles, Grid, makeStyles, Paper, Theme, Typography } from '@material-ui/core';
+import { Button, createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import statueOfLiberty from '../images/statue-of-liberty.png';

@@ -7,7 +7,7 @@ import NavBar from './NavBar';
 import { CreateElectionComponent } from './CreateElectionComponent';
 import { ElectionTableComponent } from './ElectionTableComponent';
 import { HomeComponent } from './HomeComponent';
-import { Container, Grid } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 
 export type MainComponentProps = {
   voters: Voter[];
