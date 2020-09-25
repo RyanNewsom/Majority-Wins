@@ -36,28 +36,6 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 type Order = "asc" | "desc";
 
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string }
-) => number {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
-  const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) return order;
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
-
 interface HeadCell {
   disablePadding: boolean;
   id: keyof Voter;
@@ -381,60 +359,57 @@ export function RegisteredVotersTableComponent(
               rowCount={voters.length}
             />
             <TableBody>
-              {
-                //stableSort(voters, getComparator(order, orderBy))
-                voters
-                  .slice(
-                    props.tablePage * rowsPerPage,
-                    props.tablePage * rowsPerPage + rowsPerPage
-                  )
-                  .map((row, index) => {
-                    const isItemSelected = isSelected(row.id);
-                    const labelId = `enhanced-table-checkbox-${index}`;
+              {voters
+                .slice(
+                  props.tablePage * rowsPerPage,
+                  props.tablePage * rowsPerPage + rowsPerPage
+                )
+                .map((row, index) => {
+                  const isItemSelected = isSelected(row.id);
+                  const labelId = `enhanced-table-checkbox-${index}`;
 
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        aria-checked={isItemSelected}
-                        tabIndex={-1}
-                        key={row.id}
-                        selected={isItemSelected}
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={row.id}
+                      selected={isItemSelected}
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          checked={isItemSelected}
+                          onClick={(event) => handleClick(event, row.id)}
+                          inputProps={{ "aria-labelledby": labelId }}
+                        />
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
                       >
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            checked={isItemSelected}
-                            onClick={(event) => handleClick(event, row.id)}
-                            inputProps={{ "aria-labelledby": labelId }}
-                          />
-                        </TableCell>
-                        <TableCell
-                          component="th"
-                          id={labelId}
-                          scope="row"
-                          padding="none"
+                        {row.firstName}
+                      </TableCell>
+                      <TableCell align="left">{row.lastName}</TableCell>
+                      <TableCell align="left">{row.address}</TableCell>
+                      <TableCell align="left">{row.city}</TableCell>
+                      <TableCell align="left">{row.birthDate}</TableCell>
+                      <TableCell align="left">{row.email}</TableCell>
+                      <TableCell align="left">{row.phone}</TableCell>
+                      <TableCell align="left">
+                        <Button
+                          onClick={() => {
+                            handleEditPressed(row.id);
+                          }}
                         >
-                          {row.firstName}
-                        </TableCell>
-                        <TableCell align="left">{row.lastName}</TableCell>
-                        <TableCell align="left">{row.address}</TableCell>
-                        <TableCell align="left">{row.city}</TableCell>
-                        <TableCell align="left">{row.birthDate}</TableCell>
-                        <TableCell align="left">{row.email}</TableCell>
-                        <TableCell align="left">{row.phone}</TableCell>
-                        <TableCell align="left">
-                          <Button
-                            onClick={() => {
-                              handleEditPressed(row.id);
-                            }}
-                          >
-                            Edit
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })
-              }
+                          Edit
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>
                   <TableCell colSpan={6} />
