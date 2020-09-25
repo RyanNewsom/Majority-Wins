@@ -1,14 +1,14 @@
-import { CaptureVotesComponent } from "./CaptureVotesComponent";
-import React from 'react';
-import { Election, ElectionForm, Voter } from '../models/App';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { RegisterVotersComponent } from './RegisterVotersComponent';
-import NavBar from './NavBar';
-import { CreateElectionComponent } from './CreateElectionComponent';
-import { TableSorting } from './RegisteredVotersTableComponent';
-import { ElectionTableComponent } from './ElectionTableComponent';
 import { Container } from '@material-ui/core';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Election, ElectionForm, Voter } from '../models/App';
+import { CaptureVotesComponent } from './CaptureVotesComponent';
+import { CreateElectionComponent } from './CreateElectionComponent';
+import { ElectionTableComponent } from './ElectionTableComponent';
 import { HomeComponent } from './HomeComponent';
+import NavBar from './NavBar';
+import { TableSorting } from './RegisteredVotersTableComponent';
+import { RegisterVotersComponent } from './RegisterVotersComponent';
 
 export type MainComponentProps = {
   voters: Voter[];
@@ -17,7 +17,7 @@ export type MainComponentProps = {
   currentElection: Election;
   currentVoter: Voter;
   onHandleDrodownChange: (electionForm: Election) => void;
-  onCaptureElectionVotes: (election: Election ) => void;
+  onCaptureElectionVotes: (election: Election) => void;
   onValidateVoter: (voter: Voter) => void;
   onHandleReturn: () => void;
   expandedElectionId: number;
@@ -70,14 +70,14 @@ export function MainComponent(props: MainComponentProps) {
         <Route path="/capturevotes">
           <NavBar />
           <CaptureVotesComponent
-              currentElection={props.currentElection}
-              currentVoter={props.currentVoter}
-              onCaptureElectionVotes={props.onCaptureElectionVotes}
-              onHandleDrodownChange={props.onHandleDrodownChange}
-              onValidateVoter={props.onValidateVoter}
-              onHandleReturn={props.onHandleReturn}
-              elections={props.elections}
-              voters={props.voters}
+            currentElection={props.currentElection}
+            currentVoter={props.currentVoter}
+            onCaptureElectionVotes={props.onCaptureElectionVotes}
+            onHandleDrodownChange={props.onHandleDrodownChange}
+            onValidateVoter={props.onValidateVoter}
+            onHandleReturn={props.onHandleReturn}
+            elections={props.elections}
+            voters={props.voters}
           />
         </Route>
         <Route path="/elections">

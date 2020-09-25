@@ -38,13 +38,13 @@ export function CaptureVotesComponent(props:CaptureVotesComponentProps ) {
   const [ inputEmail, setInputEmail ] = useState('');
   const [ hasVoted, setHasVoted ] = useState(true);
 
-  const currentElectionVoteIds = props.currentElection.voterIds;
-  const hasCurrentUserVoted = currentElectionVoteIds ? currentElectionVoteIds.includes(props.currentVoter.id) : false;
+  // const currentElectionVoteIds = props.currentElection.voterIds;
+  // const hasCurrentUserVoted = currentElectionVoteIds ? currentElectionVoteIds.includes(props.currentVoter.id) : false;
 
   const handleDrodownChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     props.onHandleDrodownChange(props.elections.filter(election => election.name === event.target.value)[0]);
   }
-  console.log('hasCurrentUserVoted', hasCurrentUserVoted);
+  // console.log('hasCurrentUserVoted', hasCurrentUserVoted);
 
   const isValidVoter = props.currentVoter && !(Object.keys(props.currentVoter).length === 0);
   const isCurrentElection = props.currentElection && !(Object.keys(props.currentElection).length === 0);
@@ -82,34 +82,26 @@ export function CaptureVotesComponent(props:CaptureVotesComponentProps ) {
       </header>
       <main id="content">
         <section>
-          <h2 className="section-title">Select a Ballot from the dropdown:</h2>
+          <h2 className="section-title">Select a Ballot</h2>
           <Select
               labelId="election-list-select-label"
               id="select-election"
               value={isCurrentElection ? props.currentElection.name : ""}
               onChange={handleDrodownChange}
               className={classes.selectEmpty}
+              fullWidth
             >
             <MenuItem value=""><em>None</em></MenuItem>
             {props.elections.map(election => <MenuItem key={election.id} value={election.name}>{election.name}</MenuItem>)}
           </Select>
-          {isCurrentElection &&
-            <p>
-              <label>You have selected: {props.currentElection.name}</label><br/> <br/>
-              {/* <Button variant="contained" color="primary" onClick={() => beginVoting()}>Begin Voting</Button> */}
-            </p>
-          }
         </section>
         <section>
           {isCurrentElection &&
-            <>
-              <label>Enter Email Address: </label>
-              <TextField id="email-input" label="email address" value={inputEmail} onChange={change}/>
-            </>
+              <TextField id="email-input" label="email address" value={inputEmail} onChange={change} fullWidth />
           }
           {isCurrentElection && inputEmail && !isValidVoter && <p>{invalidVoterErrorMessage}</p>}
           {isValidVoter &&
-              <Button variant="contained" color="primary" onClick={() => validateVoted()}>Begin Voting</Button>
+              <Button style={{ marginTop: 10 }} variant="contained" color="primary" onClick={() => validateVoted()} fullWidth>Begin Voting</Button>
           }
         </section>
       </main>
