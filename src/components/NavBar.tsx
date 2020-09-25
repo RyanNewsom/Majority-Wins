@@ -1,13 +1,13 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 16,
   },
   navLink: {
-    color: "white",
-    textDecoration: "none",
+    color: 'white',
+    textDecoration: 'none',
   },
 }));
 
@@ -33,14 +33,14 @@ export default function Navbar() {
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             <Link className={classes.navLink} to="/">
-              Majority Wins
+              Majority Wins™
             </Link>
           </Typography>
           <Button
             className={classes.navButton}
             color="inherit"
             onClick={() => {
-              history.push("/voters");
+              history.push('/voters');
             }}
             variant="outlined"
           >
@@ -51,7 +51,7 @@ export default function Navbar() {
             variant="outlined"
             color="inherit"
             onClick={() => {
-              history.push("/capturevotes");
+              history.push('/capturevotes');
             }}
           >
             Capture Votes
@@ -61,7 +61,7 @@ export default function Navbar() {
             variant="outlined"
             color="inherit"
             onClick={() => {
-              history.push("/elections");
+              history.push('/elections');
             }}
           >
             Election Creation
