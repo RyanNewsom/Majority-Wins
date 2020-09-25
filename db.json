@@ -81,23 +81,23 @@
         {
           "id": 0,
           "content": "Flukeman is the most terrifying X-Files monster",
-          "yes": 2,
+          "yes": 3,
           "no": 0
         },
         {
           "id": 1,
           "content": "Eugene Victor Tooms is the most terrifying X-Files monster",
-          "yes": 0,
+          "yes": 3,
           "no": 2
         },
         {
           "id": 2,
           "content": "Mrs. Peacock is the most terrifying X-Files monster",
-          "yes": 0,
+          "yes": 2,
           "no": 2
         }
       ],
-      "voterIds": [0, 1]
+      "voterIds": [1, 2, 3]
     },
     {
       "id": 2,

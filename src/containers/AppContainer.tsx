@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { bindActionCreators } from "redux";
 import { useSelector, useDispatch } from "react-redux";
 import { AppState, Election, Voter } from "../models/App";
-
-import { MainComponent } from "../components/MainComponent";
-import * as AppActions from "../actions/AppActions";
+import { MainComponent } from '../components/MainComponent';
+import * as AppActions from '../actions/AppActions';
+import * as ElectionActions from '../actions/ElectionActions';
+import * as CaptureVotesActions from '../actions/CaptureVotesActions';
 import * as RegisterVotersActions from "../actions/RegisterVotersActions";
-import * as ElectionActions from "../actions/ElectionActions";
 import { TableSorting } from "../components/RegisteredVotersTableComponent";
 
 export function AppContainer() {
@@ -17,6 +17,13 @@ export function AppContainer() {
   const expandedElectionId = useSelector<AppState, number>(
     (state) => state.expandedElectionId
   );
+  const currentElection = useSelector<AppState, Election>(
+    (state) => state.currentElection
+  );
+  const currentVoter = useSelector<AppState, Voter>(
+    (state) => state.currentVoter
+  );
+
   const dispatch = useDispatch();
   const registeredVotersSelectedTab = useSelector<AppState, number>(
     (state) => state.registeredVotersSelectedTab || 0
@@ -43,7 +50,12 @@ export function AppContainer() {
     {
       onExpandElectionRow: ElectionActions.createExpandElectionAction,
       onCreateElection: ElectionActions.appendElection,
+      onHandleDrodownChange: CaptureVotesActions.createSetCurrentElectionAction,
+      onValidateVoter: CaptureVotesActions.createSetCurrentVoterAction,
+      onCaptureElectionVotes: CaptureVotesActions.submitElectionVotes,
+      onAddCar: AppActions.addVoter,
       onAddVoter: AppActions.addVoter,
+      onHandleReturn: CaptureVotesActions.handleReturn,
       onSaveVoter: AppActions.saveVoter,
       registerVotersTabSelected:
         RegisterVotersActions.createRegisterVotersTabSelectedAction,
@@ -72,6 +84,8 @@ export function AppContainer() {
       voters={voters}
       elections={elections}
       expandedElectionId={expandedElectionId}
+      currentElection={currentElection}
+      currentVoter={currentVoter}
       registeredVotersSelectedTab={registeredVotersSelectedTab || 0}
       registeredVotersTableSort={registeredVotersTableSort}
       registeredVotersTablePage={registeredVotersTablePage}
